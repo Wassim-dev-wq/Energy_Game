@@ -31,12 +31,18 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build --debug
     - name: Run tests
-      run: ./gradlew test
+      run: ./gradlew test --info
     - name: Check test results
       run: |
+        echo "Checking test results..."
         if [ -f build/test-results/test/*.xml ]; then
           echo "Test results found, checking for failures..."
-          if grep -q 'failure' build/test-results/test/*.xml; then
+          failed_tests=$(grep -c 'failure' build/test-results/test/*.xml)
+          passed_tests=$(grep -c 'success' build/test-results/test/*.xml)
+          echo "Number of failed tests: $failed_tests"
+          echo "Number of passed tests: $passed_tests"
+          echo "Test suite name: $(grep -oP 'name="\K[^"]+' build/test-results/test/*.xml | head -n 1)"
+          if [ $failed_tests -gt 0 ]; then
             echo "Tests failed. Exiting with status code 1."
             exit 1
           else
@@ -49,4 +55,3 @@ jobs:
     - name: Reject push on test failure
       if: ${{ failure() }}
       run: exit 1
-
