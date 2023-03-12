@@ -17,9 +17,13 @@ jobs:
       run: ./gradlew build
     - name: Check build status
       run: |
-        if [ -d build/reports/tests/test ]; then
-          if [ $(find build/reports/tests/test -type f -name "*.xml" -print | xargs grep -l "failure" | wc -l) -gt 0 ]; then
-            echo "Build failed. Exiting with status code 1."
+        if [ -f build/reports/tests/test/index.html ]; then
+          if grep -q 'Test failed' build/reports/tests/test/index.html; then
+            echo "Build failed. Uploading test results."
+            mkdir -p test-results
+            cp build/reports/tests/test/index.html test-results/
+            echo "::set-output name=test-results-directory::test-results"
+            echo "::set-output name=test-results-filename::index.html"
             exit 1
           else
             echo "Build succeeded."
@@ -29,3 +33,10 @@ jobs:
           exit 1
         fi
       if: always()
+
+    - name: Upload test results
+      uses: actions/upload-artifact@v2
+      if: failure()
+      with:
+        name: Test results
+        path: ${{ steps.check-build-status.outputs.test-results-directory }}/${{ steps.check-build-status.outputs.test-results-filename }}
