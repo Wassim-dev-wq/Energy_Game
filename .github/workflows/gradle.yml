@@ -2,8 +2,6 @@ name: Build Gradle project
 
 on:
   push:
-    branches:
-      - main
 
 jobs:
   build-gradle-project:
@@ -15,17 +13,3 @@ jobs:
       uses: gradle/gradle-build-action@v2
     - name: Run build with Gradle Wrapper
       run: ./gradlew build
-    - name: Check build status
-      run: |
-        if [ -f build/reports/tests/test/index.html ]; then
-          if grep -q 'Test failed' build/reports/tests/test/index.html; then
-            echo "Build failed. Exiting with status code 1."
-            exit 1
-          else
-            echo "Build succeeded."
-          fi
-        else
-          echo "No test results found. Exiting with status code 1."
-          exit 1
-        fi
-      if: always()
