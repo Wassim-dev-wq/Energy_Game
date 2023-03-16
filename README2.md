@@ -12,10 +12,18 @@ Class SquareTile extends Tile
 
 Class HexagonalTile extends Tile
 
-Enum Component
-- SOURCE
-- LAMP
-- WIFI
+Class Component
+- bool: powered
++ getDescription(): abstract string
++ power_on(): void
++ power_off(): void
++ is_powered(): bool
+
+Class Lamp extends Component
+
+Class Wifi extends Component
+
+Class Source extends Component
 
 Class Board
 - tiles: Tile[][]

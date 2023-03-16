@@ -1,4 +1,4 @@
 package InterfaceGraphique.graphique.component;
 
-public class Tile {
+public abstract class Tile {
 }
