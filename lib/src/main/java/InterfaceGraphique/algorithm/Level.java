@@ -12,7 +12,7 @@ public class Level {
     private int height;
     private int width;
     private List<String> data_list = new ArrayList<>();
-    private List<String> sources = new ArrayList<>();
+    private List<String> components = new ArrayList<>();
     private List<List<String>> directions = new ArrayList<>();
     private List<Boolean> has_electric = new ArrayList<>();
 
@@ -24,8 +24,8 @@ public class Level {
         return width;
     }
 
-    public List<String> getSources() {
-        return sources;
+    public List<String> getComponents() {
+        return components;
     }
 
     public List<List<String>> getDirections() {
@@ -54,19 +54,19 @@ public class Level {
 
         for (int i = 3; i < data_list.size(); i++) {
             String s = data_list.get(i);
-            if (s.equals(".") || s.equals("S") || s.equals("L")) {
+            if (s.equals(".") || s.equals("S") || s.equals("L") || s.equals("W")) {
                 List<String> position = new ArrayList<>();
                 if (i + 1 < data_list.size()) {
                     i++;
-                    while (i != data_list.size() && !(data_list.get(i).equals(".") || data_list.get(i).equals("S") || data_list.get(i).equals("L"))) {
+                    while (i != data_list.size() && !(data_list.get(i).equals(".") || data_list.get(i).equals("S") || data_list.get(i).equals("L") || data_list.get(i).equals("W"))) {
                         position.add(data_list.get(i));
                         i++;
                     }
-                    sources.add(s);
+                    components.add(s);
                     directions.add(position);
                     i--;
                 } else {
-                    sources.add(s);
+                    components.add(s);
                     directions.add(position);
                     break;
                 }
@@ -77,5 +77,34 @@ public class Level {
         for (int i = 0; i < height * width; i++) {
             has_electric.add(false);
         }
+        propagateElectricity();
+    }
+
+    private boolean isConnected(int component1, int component2, List<String> directions1, List<String> directions2) {
+        for (String dir1 : directions1) {
+            for (String dir2 : directions2) {
+                if (Integer.parseInt(dir1) == (Integer.parseInt(dir2) + 3) % 6) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private void propagateElectricity() {
+        for (int i = 0; i < components.size(); i++) {
+            if (components.get(i).equals("S")) {
+                has_electric.set(i, true);
+                for (int j = 0; j < components.size(); j++) {
+                    if (!components.get(j).equals(".") && isConnected(i, j, directions.get(i), directions.get(j))) {
+                        has_electric.set(j, true);
+                    }
+                }
+            }
+        }
+    }
+
+    public List<Boolean> getHasElectric() {
+        return has_electric;
     }
 }
