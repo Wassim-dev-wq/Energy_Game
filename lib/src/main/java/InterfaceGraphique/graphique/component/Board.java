@@ -32,38 +32,25 @@ public class Board extends JPanel {
 
         for (int j = 0; j < level.getHeight(); j++) {
             for (int k = 0; k < level.getWidth(); k++) {
-                int index = j * (level.getComponents().size() / level.getHeight()) + k;
+                int index = j * level.getWidth() + k;
                 String tileType = level.getComponents().get(index);
-                boolean has_electric = level.getHasElectric().get(index); // Get the has_electric status from Level
-                System.out.println(tileType + has_electric);
+                boolean has_electric = level.getHasElectric().get(index);
                 Component component = null;
                 switch (tileType) {
                     case "L":
-                        component = new Lamp(k * 120, j * 120, 120, 120, has_electric,Integer.parseInt(level.getDirections().get(index).get(0)));
+                        component = new Lamp(k * 120, j * 120, 120, 120, has_electric, Integer.parseInt(level.getDirections().get(index).get(0)));
                         break;
                     case "S":
-                        component = new Source(k * 120, j * 120, 120, 120,level.getDirections().get(index).get(0));
+                        component = new Source(k * 120, j * 120, 120, 120, level.getDirections().get(index).get(0));
                         break;
                     case "W":
-                        component = new Wifi(k * 120, j * 120, 120, 120, has_electric,Integer.parseInt(level.getDirections().get(index).get(0)));
-                        break;
-                    case "LP":
-                        component = new LongPath(k * 120, j * 120, has_electric);
-                        break;
-                    case "SP":
-                        component = new ShortPath(k * 120, j * 120, has_electric);
-                        break;
-                    case "LC":
-                        component = new LongCurved(k * 120, j * 120, has_electric);
-                        break;
-                    case "SC":
-                        component = new ShortCurved(k * 120, j * 120, has_electric);
+                        component = new Wifi(k * 120, j * 120, 120, 120, has_electric, Integer.parseInt(level.getDirections().get(index).get(0)));
                         break;
                     case ".":
                         if (level.getDirections().get(index).size() == 0) {
                             component = new Empty(k * 120, j * 120);
                         } else {
-                            component = new CombinedPath(k * 120, j * 120, level.getDirections().get(index),has_electric);
+                            component = new CombinedPath(k * 120, j * 120, level.getDirections().get(index), has_electric);
                         }
                         break;
                 }

@@ -17,7 +17,7 @@ public class Game extends JFrame {
         Board board = new Board(game);
         board.setBackground(Color.BLACK);
         game.add(board);
-        InputStream levelStream = Game.class.getResourceAsStream("/Levels/level1.nrg");
+        InputStream levelStream = Game.class.getResourceAsStream("/Levels/level8.nrg");
         board.loadLevel(levelStream);
         game.setTitle("Energy Game");
         game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

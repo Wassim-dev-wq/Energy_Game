@@ -73,36 +73,82 @@ public class Level {
             }
         }
 
-        // Initialize the has_electric list
         for (int i = 0; i < height * width; i++) {
             has_electric.add(false);
         }
         propagateElectricity();
     }
 
-    private boolean isConnected(int component1, int component2, List<String> directions1, List<String> directions2) {
-        for (String dir1 : directions1) {
+    private boolean isConnected(int row1, int col1, int row2, int col2, List<String> directions1, List<String> directions2) {
+        for (String dir1 : directions1) {System.out.println("directions1 "+dir1);}
+
+        for (String dir2 : directions2) {System.out.println(dir2);}
+
+            for (String dir1 : directions1) {
+            int dir1Int = Integer.parseInt(dir1);
             for (String dir2 : directions2) {
-                if (Integer.parseInt(dir1) == (Integer.parseInt(dir2) + 3) % 6) {
-                    return true;
+                int dir2Int = Integer.parseInt(dir2);
+                if (connected(dir1Int, dir2Int)) {
+                    String componentType1 = components.get(row1 * width + col1);
+                    String componentType2 = components.get(row2 * width + col2);
+                    boolean isValidComponentType1 = componentType1.equals("S") || componentType1.equals("W") || (componentType1.equals(".") && !directions.get(row1 * width + col1).isEmpty());
+                    boolean isValidComponentType2 = componentType2.equals("W") || componentType2.equals(".") || componentType2.equals("L");
+
+                    if (isValidComponentType1 && isValidComponentType2) {
+                        return true;
+                    }
                 }
             }
         }
+
         return false;
     }
+    private boolean connected(int sourceDir, int targetDir) {
+        return ((sourceDir == 0 && targetDir == 2) || (sourceDir == 1 && targetDir == 3) ||
+                (sourceDir == 2 && targetDir == 0) || (sourceDir == 3 && targetDir == 1));
+    }
+
+
 
     private void propagateElectricity() {
         for (int i = 0; i < components.size(); i++) {
+            System.out.println("components.get("+i+") :"+components.get(i));
             if (components.get(i).equals("S")) {
                 has_electric.set(i, true);
-                for (int j = 0; j < components.size(); j++) {
-                    if (!components.get(j).equals(".") && isConnected(i, j, directions.get(i), directions.get(j))) {
-                        has_electric.set(j, true);
+                propagateElectricityFromIndex(i);
+            }
+        }
+    }
+
+    private void propagateElectricityFromIndex(int sourceIndex) {
+        int sourceRow = sourceIndex / width;
+        int sourceCol = sourceIndex % width;
+
+        System.out.println("sourceIndex" + sourceIndex + " sourceRow" + sourceRow + " sourceCol" + sourceCol);
+
+        int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
+        for (int[] dir : directions) {
+            int newRow = sourceRow + dir[0];
+            int newCol = sourceCol + dir[1];
+
+            if (newRow >= 0 && newRow < height && newCol >= 0 && newCol < width) {
+                int targetIndex = newRow * width + newCol;
+                boolean isNotEmptyPath = components.get(targetIndex).equals(".") && !this.directions.get(targetIndex).isEmpty();
+
+                if ((!components.get(targetIndex).equals(".") || isNotEmptyPath) && !has_electric.get(targetIndex)) {
+                    if (isConnected(sourceRow, sourceCol, newRow, newCol, this.directions.get(sourceIndex), this.directions.get(targetIndex))) {
+                        System.out.println("i: " + targetIndex + " targetRow" + newRow + " targetCol : " + newCol);
+                        System.out.println("- components.get(i).equals(.) " + components.get(targetIndex).equals(".") + " has_electric.get(i) " + has_electric.get(targetIndex));
+                        System.out.println("- sourceRow " + sourceRow + " sourceCol " + sourceCol + " targetRow " + newRow + " targetCol " + newCol + " directions.get(sourceIndex) " + this.directions.get(sourceIndex) + " directions.get(i) " + this.directions.get(targetIndex));
+                        has_electric.set(targetIndex, true);
+                        propagateElectricityFromIndex(targetIndex);
                     }
                 }
             }
         }
     }
+
 
     public List<Boolean> getHasElectric() {
         return has_electric;

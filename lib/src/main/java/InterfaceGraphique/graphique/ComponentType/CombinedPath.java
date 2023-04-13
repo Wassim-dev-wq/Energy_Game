@@ -14,6 +14,8 @@ public class CombinedPath extends Component {
     private Empty empty;
     private int _x;
     private int _y;
+    private String componentType;
+
 
     public CombinedPath(int x, int y, List<String> directions, boolean isOn) {
         super(x, y);
@@ -22,6 +24,11 @@ public class CombinedPath extends Component {
         this.directions = directions;
         createComponents();
         updateGraphics(isOn);
+        if (directions.isEmpty()) {
+            componentType = "empty";
+        } else {
+            componentType = "path";
+        }
     }
 
     public int getX() {
@@ -38,6 +45,9 @@ public class CombinedPath extends Component {
         off_long_path = new LongPath(0, 0, false);
         on_long_path = new LongPath(0, 0, true);
         empty = new Empty(0, 0);
+    }
+    public String getComponentType() {
+        return componentType;
     }
 
     private void updateGraphics(boolean isOn) {
