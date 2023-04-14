@@ -11,8 +11,8 @@ public class ShortCurved extends Component {
 
     private void createShortCurvedOn(int x, int y, int w, int h) {
         if (on_short_curved == null) {
-            x = 0;
-            y = 600;
+            x = 489;
+            y = 720;
             on_short_curved = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
             on_short_curved.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
         }
@@ -20,7 +20,7 @@ public class ShortCurved extends Component {
 
     private void createShortCurvedOff(int x, int y, int w, int h) {
         if (off_short_curved == null) {
-            x = 0;
+            x = 480;
             y = 240;
             off_short_curved = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
             off_short_curved.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
@@ -29,7 +29,7 @@ public class ShortCurved extends Component {
 
     public ShortCurved(int x, int y, boolean isOn) {
         super(x, y);
-        updateGraphics(x, y, 120, 120, isOn);
+        updateGraphics(x, y, 120, 104, isOn);
     }
 
     private void updateGraphics(int x, int y, int w, int h, boolean isOn) {

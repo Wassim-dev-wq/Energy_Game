@@ -11,8 +11,8 @@ public class LongCurved extends Component {
 
     private void createLongCurvedOn(int x, int y, int w, int h) {
         if (on_long_curved == null) {
-            x = 120;
-            y = 600;
+            x = 600;
+            y = 720;
             on_long_curved = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
             on_long_curved.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
         }
@@ -20,7 +20,7 @@ public class LongCurved extends Component {
 
     private void createLongCurvedOff(int x, int y, int w, int h) {
         if (off_long_curved == null) {
-            x = 120;
+            x = 600;
             y = 240;
             off_long_curved = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
             off_long_curved.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
@@ -29,7 +29,7 @@ public class LongCurved extends Component {
 
     public LongCurved(int x, int y, boolean isOn) {
         super(x, y);
-        updateGraphics(x, y, 120, 120, isOn);
+        updateGraphics(x, y, 120, 104, isOn);
     }
 
     private void updateGraphics(int x, int y, int w, int h, boolean isOn) {

@@ -3,54 +3,57 @@ package InterfaceGraphique.graphique.ComponentType;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.geom.AffineTransform;
+import java.util.List;
 
 public class Source extends Component {
     private static BufferedImage source;
     private BufferedImage combined_source;
 
     public static BufferedImage src = ImageLoader.getSrc();
-    private String direction;
+    private List<String> directions;
 
-    public Source(int x, int y, int w, int h, String direction) {
+    public Source(int x, int y, int w, int h, List<String> directions, String format) {
         super(x, y);
-        this.direction = direction;
-        updateGraphics(x, y, w, h);
+        System.out.println("BEN BURDAYIM");
+        this.directions = directions;
+        updateGraphics(x, y, w, h, format);
     }
 
-    private void createCombinedSource(int x, int y, int w, int h) {
-        x = 0;
+    public Source(){
+        super(0, 0);
+    }
+
+    private void createCombinedSource(int x, int y, int w, int h, String format) {
+        if (format.equals("H")) x = 360;
+        else x = 0;
         y = 480;
         source = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
         source.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
-        ShortPath off_short_path = new ShortPath(0, 0, true);
+        ShortPath on_short_path = new ShortPath(0, 0, true, format);
+        Empty empty = new Empty(0,0,format,true);
         combined_source = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g_combined_source_off = combined_source.createGraphics();
-
-        int intDirection = Integer.parseInt(direction);
+        g_combined_source_off.drawImage(source, 0,0, null);
+        g_combined_source_off.drawImage(empty.getCurrentImage(), 0, 0, null);
         double rotationAngle = 0;
-        switch (intDirection) {
-            case 0:
-                rotationAngle = Math.toRadians(0);
-                break;
-            case 1:
-                rotationAngle = Math.toRadians(90);
-                break;
-            case 2:
-                rotationAngle = Math.toRadians(180);
-                break;
-            case 3:
-                rotationAngle = Math.toRadians(270);
-                break;
+        int angle = 0;
+        int turn_angle = 90;
+        if (format.equals("H")) turn_angle = 60;
+        for (int i=0; i<directions.size(); i++){
+            int intDirection = Integer.parseInt(directions.get(i));
+            rotationAngle = Math.toRadians(intDirection*turn_angle) - angle;
+
+            AffineTransform shortPathTransform = AffineTransform.getRotateInstance(rotationAngle, (double) w / 2, (double) h / 2);
+            g_combined_source_off.drawImage(on_short_path.getCurrentImage(), shortPathTransform, null);
+            angle = Integer.parseInt(directions.get(i))*turn_angle;
         }
 
-        g_combined_source_off.drawImage(source, 0,0, null);
 
-        AffineTransform shortPathTransform = AffineTransform.getRotateInstance(rotationAngle, (double) w / 2, (double) h / 2);
-        g_combined_source_off.drawImage(off_short_path.getCurrentImage(), shortPathTransform, null);
+
     }
 
-    private void updateGraphics(int x, int y, int w, int h) {
-        createCombinedSource(x, y, w, h);
+    private void updateGraphics(int x, int y, int w, int h, String format) {
+        createCombinedSource(x, y, w, h, format);
         setCurrentImage(combined_source);
     }
 }

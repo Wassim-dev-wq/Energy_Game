@@ -10,7 +10,7 @@ public class MediumCurved extends Component {
 
     private void createMediumCurvedOn(int x, int y, int w, int h) {
         if (on_medium_curved == null) {
-            x = 0;
+            x = 120;
             y = 600;
             on_medium_curved = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
             on_medium_curved.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
@@ -19,7 +19,7 @@ public class MediumCurved extends Component {
 
     private void createMediumCurvedOff(int x, int y, int w, int h) {
         if (off_medium_curved == null) {
-            x = 0;
+            x = 120;
             y = 240;
             off_medium_curved = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
             off_medium_curved.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);

@@ -11,6 +11,7 @@ import java.util.List;
 public class Level {
     private int height;
     private int width;
+    private String format;
     private List<String> data_list = new ArrayList<>();
     private List<String> components = new ArrayList<>();
     private List<List<String>> directions = new ArrayList<>();
@@ -19,6 +20,8 @@ public class Level {
     public int getHeight() {
         return height;
     }
+
+    public String getFormat(){return format;}
 
     public int getWidth() {
         return width;
@@ -50,7 +53,7 @@ public class Level {
 
         height = Integer.parseInt(data_list.get(0));
         width = Integer.parseInt(data_list.get(1));
-        String format = data_list.get(2);
+        format = data_list.get(2);
 
         for (int i = 3; i < data_list.size(); i++) {
             String s = data_list.get(i);
