@@ -16,7 +16,6 @@ public class Source extends Component {
     }
     public Source(int x, int y, int w, int h, List<String> directions, String format) {
         super(x, y);
-        System.out.println("BEN BURDAYIM");
         this.directions = directions;
         updateGraphics(x, y, w, h, format);
     }
