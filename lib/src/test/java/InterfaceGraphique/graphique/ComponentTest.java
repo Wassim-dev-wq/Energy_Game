@@ -1,5 +1,9 @@
 package InterfaceGraphique.graphique;
 
+//<<<<<<< HEAD
+//=======
+import InterfaceGraphique.graphique.ComponentType.Component;
+//>>>>>>> recovery
 import InterfaceGraphique.graphique.ComponentType.Lamp;
 import InterfaceGraphique.graphique.ComponentType.Source;
 import InterfaceGraphique.graphique.ComponentType.Wifi;
