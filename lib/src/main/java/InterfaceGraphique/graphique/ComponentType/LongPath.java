@@ -18,7 +18,10 @@ public class LongPath extends Component {
             on_long_path.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
         }
     }
-
+    //TODO
+    @Override
+    public void rotate() {
+    }
     private void createLongPathOff(int x, int y, int w, int h, String format) {
         if (off_long_path == null) {
             if (format.equals("H")) x = 720;

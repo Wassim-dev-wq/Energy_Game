@@ -12,12 +12,15 @@ public class LongCurved extends Component {
     private void createLongCurvedOn(int x, int y, int w, int h) {
         if (on_long_curved == null) {
             x = 600;
-            y = 720;
+            y = 600;
             on_long_curved = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
             on_long_curved.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
         }
     }
-
+    //TODO
+    @Override
+    public void rotate() {
+    }
     private void createLongCurvedOff(int x, int y, int w, int h) {
         if (off_long_curved == null) {
             x = 600;

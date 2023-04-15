@@ -20,12 +20,14 @@ public class CombinedPath extends Component {
     private int _x;
     private int _y;
     private String componentType;
+    private boolean isOn;
 
 
     public CombinedPath(int x, int y, List<String> directions, boolean isOn, String format) {
         super(x, y);
         this._x = x;
         this._y = y;
+        this.isOn = isOn;
         this.directions = directions;
         createComponents(format);
         updateGraphics(isOn, format);
@@ -58,6 +60,9 @@ public class CombinedPath extends Component {
     }
     public String getComponentType() {
         return componentType;
+    }
+    @Override //TODO
+    public void rotate() {
     }
 
     private void updateGraphics(boolean isOn, String format) {

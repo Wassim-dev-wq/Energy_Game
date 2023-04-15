@@ -12,7 +12,9 @@ public class Empty extends Component {
 //        empty = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
 //        empty.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
 //    }
-
+@Override
+public void rotate() {
+}
     public Empty(int x, int y, String f, boolean electric) {
         super(x, y);
         createEmpty(f, electric);

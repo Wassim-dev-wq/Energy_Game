@@ -17,17 +17,16 @@ public class Wifi extends Component {
 
     private boolean isOn;
     private List<String> directions;
-
+    //TODO
+    @Override
+    public void rotate() {
+    }
     public Wifi(int x, int y, int w, int h, boolean isOn, List<String> directions, String format) {
         super(x, y);
         this.isOn = isOn;
         this.directions = directions;
         this.format = format;
         updateGraphics(x, y, w, h);
-    }
-
-    public Wifi(){
-        super(0, 0);
     }
 
     private void createCombinedWifiOff(int x, int y, int w, int h) {

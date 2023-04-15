@@ -1,35 +1,27 @@
 package InterfaceGraphique.Game;
 
-import InterfaceGraphique.graphique.component.Board;
-
 import javax.swing.*;
 import java.awt.*;
-import java.io.InputStream;
 
 public class Game extends JFrame {
 
     public void updateWindowSize(int height, int length) {
-        setSize(length * 120 + 10, height * 120 + 40);
+        setSize(length * 120 + 100 , height * 120 + 150);
     }
 
     public static void main(String[] args) {
         Game game = new Game();
-        Board board = new Board(game);
-        board.setBackground(Color.BLACK);
-        game.add(board);
-//        InputStream levelStream = Game.class.getResourceAsStream("/Levels/level1.nrg");   // SQUARE
-//        InputStream levelStream = Game.class.getResourceAsStream("/Levels/level2.nrg");   // SQUARE
-//        InputStream levelStream = Game.class.getResourceAsStream("/Levels/level3.nrg");   // HEXAGON
-        InputStream levelStream = Game.class.getResourceAsStream("/Levels/level4.nrg");   // HEXAGON
-//        InputStream levelStream = Game.class.getResourceAsStream("/Levels/level5.nrg");   // SQUARE
-//        InputStream levelStream = Game.class.getResourceAsStream("/Levels/level6.nrg");   // SQUARE
-//        InputStream levelStream = Game.class.getResourceAsStream("/Levels/level7.nrg");   // HEXAGON
-//        InputStream levelStream = Game.class.getResourceAsStream("/Levels/level8.nrg");   // HEXAGON
-//        InputStream levelStream = Game.class.getResourceAsStream("/Levels/level9.nrg");   // SQUARE
-//        InputStream levelStream = Game.class.getResourceAsStream("/Levels/level10.nrg");  // HEXAGON
-        board.loadLevel(levelStream);
+
+        LevelSelection levelSelection = new LevelSelection(game);
+
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        game.setContentPane(mainPanel);
+
+        mainPanel.add(levelSelection, BorderLayout.CENTER);
+
         game.setTitle("Energy Game");
         game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        game.pack();
         game.setLocationRelativeTo(null);
         game.setVisible(true);
     }

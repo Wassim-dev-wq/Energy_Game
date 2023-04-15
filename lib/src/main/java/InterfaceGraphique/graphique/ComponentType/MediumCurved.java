@@ -16,7 +16,9 @@ public class MediumCurved extends Component {
             on_medium_curved.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
         }
     }
-
+    @Override
+    public void rotate() {
+    }
     private void createMediumCurvedOff(int x, int y, int w, int h) {
         if (off_medium_curved == null) {
             x = 120;

@@ -19,7 +19,10 @@ public class Lamp extends Component {
 //    private int direction;
 
     private List<String> directions;
-
+    //TODO
+    @Override
+    public void rotate() {
+    }
     public Lamp(int x, int y, int w, int h, boolean isOn, List<String> directions, String format) {
         super(x, y);
         this.isOn = isOn;
@@ -27,9 +30,6 @@ public class Lamp extends Component {
         updateGraphics(x, y, w, h, format);
     }
 
-    public Lamp(){
-        super(0,0);
-    }
 
     private void createCombinedLamp(int x, int y, int w, int h, String format) {
         int angle = 90;

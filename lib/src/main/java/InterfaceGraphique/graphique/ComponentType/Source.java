@@ -11,7 +11,9 @@ public class Source extends Component {
 
     public static BufferedImage src = ImageLoader.getSrc();
     private List<String> directions;
-
+    @Override
+    public void rotate() {
+    }
     public Source(int x, int y, int w, int h, List<String> directions, String format) {
         super(x, y);
         System.out.println("BEN BURDAYIM");
