@@ -48,6 +48,7 @@ public class Board extends JPanel {
         level = new Level(levelFilePath);
         game.updateWindowSize(level.getHeight(), level.getWidth());
     }
+
     private void handleClick(int x, int y) {
         for (Component component : components) {
             if (component.containsPoint(x, y)) {
@@ -58,13 +59,7 @@ public class Board extends JPanel {
             }
         }
     }
-
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        if (level != null) {
-            game.updateWindowSize(level.getHeight(), level.getWidth());
-        }
-        components.clear();
+    private void createComponents() {
         int xOffset = (getWidth() - level.getWidth() * 120) / 2;
         int yOffset = (getHeight() - level.getHeight() * 120) / 2;
         for (int j = 0; j < level.getHeight(); j++) {
@@ -96,6 +91,15 @@ public class Board extends JPanel {
                 }
             }
         }
+    }
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if (level != null) {
+            game.updateWindowSize(level.getHeight(), level.getWidth());
+        }
+        components.clear();
+        createComponents();
 
         for (Component component : components) {
             component.draw(g);
