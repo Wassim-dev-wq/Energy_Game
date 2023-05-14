@@ -41,7 +41,8 @@ public class LevelSelection extends JPanel {
         button.setPreferredSize(new Dimension(120, 120));
         button.setFont(new Font("Arial", Font.PLAIN, 18));
         button.setBackground(Color.DARK_GRAY);
-        button.setForeground(Color.WHITE);
+//        button.setForeground(Color.WHITE);
+        button.setForeground(Color.BLACK);
         button.setFocusPainted(false);
 
         // grid position
@@ -70,7 +71,8 @@ public class LevelSelection extends JPanel {
 
                 game.setContentPane(gamePanel);
                 game.pack();
-                game.setLocationRelativeTo(null);            }
+                game.setLocationRelativeTo(null);
+            }
         });
 
         levelsPanel.add(button, gridBag);

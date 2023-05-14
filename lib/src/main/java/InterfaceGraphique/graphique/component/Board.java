@@ -15,7 +15,6 @@ public class Board extends JPanel {
     private Game game;
     private Level level;
     private List<Component> components;
-
     public Board(Game game) {
         this.game = game;
         components = new ArrayList<>();
@@ -26,7 +25,6 @@ public class Board extends JPanel {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
                 System.out.println("Mouse clicked at: (" + e.getX() + ", " + e.getY() + ")");
                 handleClick(e.getX(), e.getY());
             }

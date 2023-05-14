@@ -2,14 +2,16 @@ package InterfaceGraphique.Game;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.*;
 
 public class Game extends JFrame {
+    public static int score = 0;
 
     public void updateWindowSize(int height, int length) {
         setSize(length * 120 + 100 , height * 120 + 150);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
         Game game = new Game();
 
         LevelSelection levelSelection = new LevelSelection(game);
