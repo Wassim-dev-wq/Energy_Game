@@ -7,6 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.*;
+import java.util.Scanner;
 
 public class ControlPanel extends JPanel {
     private Game game;
@@ -17,7 +19,7 @@ public class ControlPanel extends JPanel {
         setLayout(new FlowLayout(FlowLayout.LEFT));
         setBackground(Color.DARK_GRAY);
 
-        Color buttonTextColor = Color.WHITE;
+        Color buttonTextColor = Color.BLACK;
         createHomeButton(buttonTextColor);
         createHelpButton(buttonTextColor);
         createSolutionButton(buttonTextColor);
@@ -48,6 +50,7 @@ public class ControlPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO
+                JOptionPane.showMessageDialog(game, "Welcome to Swing!");
             }
         });
         add(helpButton);
@@ -67,7 +70,7 @@ public class ControlPanel extends JPanel {
     }
 
     private void createScoreLabel() {
-        scoreLabel = new JLabel("Score: 0");
+        scoreLabel = new JLabel("Score: " + Game.score);
         scoreLabel.setForeground(Color.YELLOW);
         add(scoreLabel);
     }

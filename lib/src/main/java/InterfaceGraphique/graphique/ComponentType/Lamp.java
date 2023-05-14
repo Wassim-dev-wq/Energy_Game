@@ -15,18 +15,30 @@ public class Lamp extends Component {
 
     public static BufferedImage src = ImageLoader.getSrc();
 
-    private boolean isOn;
-//    private int direction;
+    private static int angle_turn = 0;
 
+    private String format;
+
+    private boolean isOn;
     private List<String> directions;
     //TODO
     @Override
     public void rotate() {
+        System.out.println("Lamp");
+        System.out.println("format -> " + format);
+        if (format.equals("S")){
+            angle_turn += 90;
+        }else{
+            angle_turn += 60;
+        }
+        System.out.println("angle_turn ->" + angle_turn);
+        updateGraphics(0, 0, 120, 120, format);
     }
     public Lamp(int x, int y, int w, int h, boolean isOn, List<String> directions, String format) {
         super(x, y);
         this.isOn = isOn;
         this.directions = directions;
+        this.format = format;
         updateGraphics(x, y, w, h, format);
     }
 
@@ -50,7 +62,7 @@ public class Lamp extends Component {
 
         g_combined_lamp_dark.drawImage(lamp, 0, 0, null);
         for (int i=0; i<directions.size(); i++){
-            double rotationAngle = Math.toRadians(angle * Integer.parseInt(directions.get(i)));
+            double rotationAngle = Math.toRadians((angle * Integer.parseInt(directions.get(i)))+angle_turn);
             AffineTransform darkShortPathTransform = AffineTransform.getRotateInstance(rotationAngle, (double) w / 2, (double) h / 2);
             g_combined_lamp_dark.drawImage(shortPath.getCurrentImage(), darkShortPathTransform, null);
         }
