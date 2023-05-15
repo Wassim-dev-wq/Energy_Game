@@ -38,6 +38,7 @@ public class Board extends JPanel {
     public int getLevelHeight() {
         return level.getHeight();
     }
+
     // TODO
     public void updateScore(int score) {
         ControlPanel controlPanel = (ControlPanel) getComponent(0);
@@ -52,13 +53,14 @@ public class Board extends JPanel {
     private void handleClick(int x, int y) {
         for (Component component : components) {
             if (component.containsPoint(x, y)) {
-                System.out.println("Component found at: (" + x + ", " + y + ")");
+                System.out.println("Component found at: (" + x + ", " + y + ")"+component.getClass().getName());
                 component.rotate();
                 repaint();
                 break;
             }
         }
     }
+
     private void createComponents() {
         int xOffset = (getWidth() - level.getWidth() * 120) / 2;
         int yOffset = (getHeight() - level.getHeight() * 120) / 2;
