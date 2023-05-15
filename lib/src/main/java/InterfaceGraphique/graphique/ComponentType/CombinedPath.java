@@ -21,16 +21,18 @@ public class CombinedPath extends Component {
     private int _y;
     private String componentType;
     private boolean isOn;
-
+    private String format;
+    private int angle;
 
     public CombinedPath(int x, int y, List<String> directions, boolean isOn, String format) {
         super(x, y);
+        this.format = format;
         this._x = x;
         this._y = y;
         this.isOn = isOn;
         this.directions = directions;
         createComponents(format);
-        updateGraphics(isOn, format);
+        updateGraphics(isOn, format,angle);
         if (directions.isEmpty()) {
             componentType = "empty";
         } else {
@@ -58,14 +60,24 @@ public class CombinedPath extends Component {
         on_empty = new Empty(0, 0, format, true);
         off_empty = new Empty(0, 0, format, false);
     }
-    public String getComponentType() {
-        return componentType;
-    }
-    @Override //TODO
+
+    @Override
     public void rotate() {
+        if (format.equals("S")) {
+            this.angle -= 90;
+            if (this.angle <  -270) {
+                this.angle = 0;
+            }
+        } else {
+            this.angle -= 60;
+            if (this.angle < -300) {
+                this.angle = 0;
+            }
+        }
+        updateGraphics(isOn, format, angle );
     }
 
-    private void updateGraphics(boolean isOn, String format) {
+    private void updateGraphics(boolean isOn, String format,int angle) {
         int w = 120;
         int h = 120;
         if (format.equals("H")){
@@ -74,7 +86,6 @@ public class CombinedPath extends Component {
         BufferedImage combined_path = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g_combined_path = combined_path.createGraphics();
         int start = Integer.parseInt(directions.get(0));
-        int angle = 0;
         for (int i = 1; i<directions.size(); i++){
             int difference = 0;
             try {
