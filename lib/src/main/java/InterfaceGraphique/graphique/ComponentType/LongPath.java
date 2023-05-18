@@ -8,7 +8,10 @@ public class LongPath extends Component {
     private static BufferedImage on_long_path;
 
     public static BufferedImage src = ImageLoader.getSrc();
-
+    int angle;
+    public int getAngle() {
+        return angle;
+    }
     private void createLongPathOn(int x, int y, int w, int h, String format) {
         if (on_long_path == null) {
             if (format.equals("H")) x = 720;

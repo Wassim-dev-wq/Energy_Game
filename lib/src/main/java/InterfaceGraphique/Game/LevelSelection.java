@@ -63,12 +63,11 @@ public class LevelSelection extends JPanel {
                 JPanel gamePanel = new JPanel(new BorderLayout());
                 board = new Board(game);
                 board.setBackground(Color.BLACK);
-                String levelFilePath = "/Levels/game_levels/level" + levelNumber + ".nrg";
+                String levelFilePath = "/Levels/levels_solution/level" + levelNumber + ".nrg";
                 board.loadAndDisplayLevel(levelFilePath);
                 Dimension boardSize = new Dimension(board.getLevelWidth() * 120, board.getLevelHeight() * 120);
                 board.setPreferredSize(boardSize);
                 gamePanel.add(board, BorderLayout.CENTER);
-
                 game.setContentPane(gamePanel);
                 game.pack();
                 game.setLocationRelativeTo(null);

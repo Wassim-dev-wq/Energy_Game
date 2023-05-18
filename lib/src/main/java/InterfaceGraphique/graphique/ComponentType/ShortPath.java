@@ -8,6 +8,7 @@ public class ShortPath extends Component {
     private static BufferedImage on_short_path;
 
     public static BufferedImage src = ImageLoader.getSrc();
+    int angle;
 
     private void createShortPathOn(int x, int y, int w, int h, String format) {
         if (on_short_path == null) {
@@ -38,6 +39,11 @@ public class ShortPath extends Component {
         if (format.equals("H")) height = 104;
         updateGraphics(x, y, width, height, isOn, format);
     }
+    @Override
+    public int getAngle() {
+        return this.angle;
+    }
+
 
     private void updateGraphics(int x, int y, int w, int h, boolean isOn, String format) {
         if (isOn) {

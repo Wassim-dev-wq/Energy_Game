@@ -8,6 +8,7 @@ public class LongCurved extends Component {
     private static BufferedImage on_long_curved;
 
     public static BufferedImage src = ImageLoader.getSrc();
+    int angle;
 
     private void createLongCurvedOn(int x, int y, int w, int h) {
         if (on_long_curved == null) {
@@ -30,11 +31,13 @@ public class LongCurved extends Component {
         }
     }
 
-    public LongCurved(int x, int y, boolean isOn) {
+    public LongCurved(int x, int y, boolean isOn, String format) {
         super(x, y);
         updateGraphics(x, y, 120, 104, isOn);
     }
-
+    public int getAngle() {
+        return angle;
+    }
     private void updateGraphics(int x, int y, int w, int h, boolean isOn) {
         if (isOn) {
             createLongCurvedOn(x, y, w, h);

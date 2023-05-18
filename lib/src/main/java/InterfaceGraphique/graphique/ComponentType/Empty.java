@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 public class Empty extends Component {
     private static BufferedImage empty;
     public static BufferedImage src = ImageLoader.getSrc();
+    int angle;
 
 //    static {
 //        int x = 0, y = 0, w = 120, h = 120;
@@ -20,7 +21,10 @@ public void rotate() {
         createEmpty(f, electric);
         setCurrentImage(empty); // Default state, change it if necessary
     }
-
+    @Override
+    public int getAngle() {
+        return this.angle;
+    }
     public void createEmpty(String format, boolean electric){
         int x = 0;
         int y = 0;

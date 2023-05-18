@@ -7,7 +7,7 @@ public class MediumCurved extends Component {
     private static BufferedImage on_medium_curved;
 
     public static BufferedImage src = ImageLoader.getSrc();
-
+    int angle;
     private void createMediumCurvedOn(int x, int y, int w, int h) {
         if (on_medium_curved == null) {
             x = 120;
@@ -28,9 +28,13 @@ public class MediumCurved extends Component {
         }
     }
 
-    public MediumCurved(int x, int y, boolean isOn) {
+    public MediumCurved(int x, int y, boolean isOn, String format) {
         super(x, y);
         updateGraphics(x, y, 120, 120, isOn);
+    }
+
+    public int getAngle() {
+        return angle;
     }
 
     private void updateGraphics(int x, int y, int w, int h, boolean isOn) {

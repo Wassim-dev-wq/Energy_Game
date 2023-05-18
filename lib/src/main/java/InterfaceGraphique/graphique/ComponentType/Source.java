@@ -11,6 +11,7 @@ public class Source extends Component {
 
     public static BufferedImage src = ImageLoader.getSrc();
     private List<String> directions;
+    int angle;
     @Override
     public void rotate() {
     }
@@ -52,7 +53,9 @@ public class Source extends Component {
 
 
     }
-
+    public int getAngle() {
+        return angle;
+    }
     private void updateGraphics(int x, int y, int w, int h, String format) {
         createCombinedSource(x, y, w, h, format);
         setCurrentImage(combined_source);

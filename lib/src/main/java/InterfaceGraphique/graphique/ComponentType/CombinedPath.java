@@ -24,6 +24,7 @@ public class CombinedPath extends Component {
     private String format;
     private int angle;
 
+
     public CombinedPath(int x, int y, List<String> directions, boolean isOn, String format) {
         super(x, y);
         this.format = format;
@@ -49,16 +50,16 @@ public class CombinedPath extends Component {
     }
 
     private void createComponents(String format) {
-        off_curved_path = new LongCurved(0, 0, false);
-        on_curved_path = new LongCurved(0, 0, true);
-        off_long_path = new LongPath(0, 0, false, format);
-        on_long_path = new LongPath(0, 0, true, format);
-        off_short_curved = new ShortCurved(0, 0, false);
-        on_short_curved = new ShortCurved(0, 0, true);
-        off_medium_curved = new MediumCurved(0, 0, false);
-        on_medium_curved = new MediumCurved(0, 0, true);
-        on_empty = new Empty(0, 0, format, true);
-        off_empty = new Empty(0, 0, format, false);
+        off_curved_path = new LongCurved(0, 0, isOn,format);
+        on_curved_path = new LongCurved(0, 0, isOn, format);
+        off_long_path = new LongPath(0, 0, isOn, format);
+        on_long_path = new LongPath(0, 0, isOn, format);
+        off_short_curved = new ShortCurved(0, 0, isOn,format);
+        on_short_curved = new ShortCurved(0, 0, isOn, format);
+        off_medium_curved = new MediumCurved(0, 0, isOn,format);
+        on_medium_curved = new MediumCurved(0, 0, isOn, format);
+        on_empty = new Empty(0, 0, format, isOn);
+        off_empty = new Empty(0, 0, format, isOn);
     }
 
     @Override
@@ -76,7 +77,10 @@ public class CombinedPath extends Component {
         }
         updateGraphics(isOn, format, angle );
     }
-
+    @Override
+    public List<String> getDirections() {
+        return this.directions;
+    }
     private void updateGraphics(boolean isOn, String format,int angle) {
         int w = 120;
         int h = 120;
@@ -160,5 +164,11 @@ public class CombinedPath extends Component {
             off_empty.draw(g_combined_path);
         }
         setCurrentImage(combined_path);
+    }
+    public boolean getIsOn() {
+        return isOn;
+    }
+    public int getAngle() {
+        return angle;
     }
 }

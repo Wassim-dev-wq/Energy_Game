@@ -4,19 +4,20 @@ package InterfaceGraphique.graphique.ComponentType;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.geom.AffineTransform;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Lamp extends Component {
     private static BufferedImage lamp;
     private static BufferedImage light_lamp;
-    private BufferedImage combined_lamp_dark;
     private BufferedImage combined_lamp;
     private BufferedImage combined_lamp_light;
+    private BufferedImage combined_lamp_dark;
 
     public static BufferedImage src = ImageLoader.getSrc();
     private AffineTransform darkShortPathTransform;
     private String gridType;
-    private int angle;
+    private int angle ;
     private boolean isOn;
     private List<String> directions;
     private boolean isFirstRotation = true;
@@ -24,16 +25,17 @@ public class Lamp extends Component {
     @Override
     public void rotate() {
         if (gridType.equals("S")) {
-            this.angle -= 90;
-            if (this.angle <  -270) { // to reset the angle to 0 when it goes back to the source
+            this.angle += 90;
+            if (this.angle >  270) { // to reset the angle to 0 when it goes back to the source
                 this.angle = 0;
             }
         } else {
-            this.angle -= 60;
-            if (this.angle <  -300) {
+            this.angle += 60;
+            if (this.angle >  300) {
                 this.angle = 0;
             }
         }
+        updateDirections();
         updateGraphics(0, 0, 120, 120, gridType, angle );
     }
 
@@ -42,10 +44,12 @@ public class Lamp extends Component {
         this.isOn = isOn;
         this.directions = directions;
         this.gridType = gridType;
-
         updateGraphics(x, y, w, h, gridType, angle);
     }
-
+    @Override
+    public List<String> getDirections() {
+        return this.directions;
+    }
     private void createCombinedLamp(int x, int y, int w, int h, String gridType,int angle) {
         if (isOn) y = 480;
         else y = 120;
@@ -67,18 +71,16 @@ public class Lamp extends Component {
 
         combined_lamp = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g_combined_lamp_dark = combined_lamp.createGraphics();
-
         g_combined_lamp_dark.drawImage(lamp, 0, 0, null);
         for (int i=0; i<directions.size(); i++){
             double rotationAngle;
             if(gridType.equals("S")){
-                rotationAngle = Math.toRadians(angle - (Integer.parseInt(directions.get(i)) * 90));
+                rotationAngle = Math.toRadians((Integer.parseInt(directions.get(i))*90));
                 darkShortPathTransform = AffineTransform.getRotateInstance(rotationAngle, (double) w / 2, (double) h / 2);
             }else {
-                rotationAngle = Math.toRadians(angle - (Integer.parseInt(directions.get(i)) * 60));
+                rotationAngle = Math.toRadians((Integer.parseInt(directions.get(i))*60));
                 darkShortPathTransform = AffineTransform.getRotateInstance(rotationAngle, (double) w / 2, anchory);
             }
-
             g_combined_lamp_dark.drawImage(shortPath.getCurrentImage(), darkShortPathTransform, null);
         }
         Empty empty = new Empty(0, 0, gridType, isOn);
@@ -88,5 +90,23 @@ public class Lamp extends Component {
     private void updateGraphics(int x, int y, int w, int h, String gridType,int angle) {
         createCombinedLamp(x, y, w, h, gridType,angle);
         setCurrentImage(combined_lamp);
+    }
+    private void updateDirections() {
+        List<String> newDirections = new ArrayList<>();
+        for (String direction : this.directions) {
+            int newDirection = (Integer.parseInt(direction) + 1) % 4; // for square grid
+            if (this.gridType.equals("H")) {
+                newDirection = (Integer.parseInt(direction) + 1) % 6;
+            }
+            newDirections.add(String.valueOf(newDirection));
+        }
+        this.directions = newDirections;
+    }
+    public int getAngle() {
+        return angle;
+    }
+    @Override
+    public void setOn(boolean isOn) {
+        this.isOn = isOn;
     }
 }

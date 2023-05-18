@@ -3,6 +3,8 @@ package InterfaceGraphique.graphique.ComponentType;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Component {
     private int x = 0;
@@ -11,7 +13,15 @@ public abstract class Component {
     private Graphics2D currentGraphics;
     protected int width = 120;
     protected int height = 120;
+    public abstract int getAngle();
 
+    boolean isOn;
+
+    public void setOn(boolean isOn) {
+    }
+    public boolean getIsOn() {
+        return false;
+    }
     public Component(int x, int y) {
         this.x = x;
         this.y = y;
@@ -38,5 +48,10 @@ public abstract class Component {
 
     protected BufferedImage getCurrentImage() {
         return currentImage;
+    }
+
+
+    public List<String> getDirections() {
+        return new ArrayList<>();
     }
 }

@@ -8,7 +8,7 @@ public class ShortCurved extends Component {
     private static BufferedImage on_short_curved;
 
     public static BufferedImage src = ImageLoader.getSrc();
-
+    int angle;
     private void createShortCurvedOn(int x, int y, int w, int h) {
         if (on_short_curved == null) {
             x = 480;
@@ -29,11 +29,13 @@ public class ShortCurved extends Component {
     @Override
     public void rotate() {
     }
-    public ShortCurved(int x, int y, boolean isOn) {
+    public ShortCurved(int x, int y, boolean isOn, String format) {
         super(x, y);
         updateGraphics(x, y, 120, 104, isOn);
     }
-
+    public int getAngle() {
+        return angle;
+    }
     private void updateGraphics(int x, int y, int w, int h, boolean isOn) {
         if (isOn) {
             createShortCurvedOn(x, y, w, h);

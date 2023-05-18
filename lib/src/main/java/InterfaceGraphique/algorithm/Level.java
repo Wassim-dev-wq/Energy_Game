@@ -12,9 +12,14 @@ public class Level {
     private int width;
     private String format;
     private List<String> data_list = new ArrayList<>();
-    private List<String> components = new ArrayList<>();
-    private List<List<String>> directions = new ArrayList<>();
-    private List<Boolean> has_electric = new ArrayList<>();
+    private List<String> componentsList = new ArrayList<>();
+    private List<List<String>> directionsList = new ArrayList<>();
+    private List<Boolean> has_electricList = new ArrayList<>();
+
+    private String[][] components;
+    private List<String>[][] directions;
+    private boolean[][] has_electric;
+    private ElectricityHandler electricityHandler;
 
     public int getHeight() {
         return height;
@@ -28,14 +33,13 @@ public class Level {
         return width;
     }
 
-    public List<String> getComponents() {
+    public String[][] getComponents() {
         return components;
     }
 
-    public List<List<String>> getDirections() {
+    public List<String>[][] getDirections() {
         return directions;
     }
-    private ElectricityHandler electricityHandler;
 
     public Level(String levelFilePath) {
         try {
@@ -53,7 +57,6 @@ public class Level {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         height = Integer.parseInt(data_list.get(0));
         width = Integer.parseInt(data_list.get(1));
         format = data_list.get(2);
@@ -68,19 +71,30 @@ public class Level {
                     position.add(data_list.get(i));
                     i++;
                 }
-                components.add(s);
-                directions.add(position);
+                componentsList.add(s);
+                directionsList.add(position);
             }
         }
-
         for (int j = 0; j < height * width; j++) {
-            has_electric.add(false);
+            has_electricList.add(false);
         }
-        electricityHandler = new ElectricityHandler(height, width, components, directions, has_electric,format);
+
+        components = new String[height][width];
+        directions = new List[height][width];
+        has_electric = new boolean[height][width];
+
+        for (int row = 0; row < height; row++) {
+            for (int col = 0; col < width; col++) {
+                int index = row * width + col;
+                components[row][col] = componentsList.get(index);
+                directions[row][col] = directionsList.get(index);
+                has_electric[row][col] = has_electricList.get(index);
+            }
+        }
+        electricityHandler = new ElectricityHandler(components, directions, has_electric, format);
         electricityHandler.propagateElectricity();
         has_electric = electricityHandler.getHasElectric();
     }
-
     public ElectricityHandler getElectricityHandler() {
         return electricityHandler;
     }
