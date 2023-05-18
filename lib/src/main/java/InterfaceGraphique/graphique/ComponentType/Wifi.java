@@ -3,6 +3,7 @@ package InterfaceGraphique.graphique.ComponentType;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.geom.AffineTransform;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Wifi extends Component {
@@ -17,7 +18,6 @@ public class Wifi extends Component {
     private int angle;
     private boolean isOn;
     private List<String> directions;
-
     private boolean isFirstRotation = true;
 
 
@@ -34,6 +34,7 @@ public class Wifi extends Component {
                 this.angle = 0;
             }
         }
+        updateDirections();
         updateGraphics(0, 0, 120, 120, angle);
     }
     public Wifi(int x, int y, int w, int h, boolean isOn, List<String> directions, String gridType) {
@@ -70,10 +71,12 @@ public class Wifi extends Component {
             double rotationAngle;
             if(format.equals("H")){
                 rotationAngle = Math.toRadians(angle - (Integer.parseInt(directions.get(i)) * 60));
+//                rotationAngle = Math.toRadians((Integer.parseInt(directions.get(i)) * 60));
                 darkShortPathTransform = AffineTransform.getRotateInstance(rotationAngle, (double) w / 2, anchory);
 
             }else {
                 rotationAngle = Math.toRadians(angle - (Integer.parseInt(directions.get(i)) * 90));
+//                rotationAngle = Math.toRadians((Integer.parseInt(directions.get(i)) * 90));
                 darkShortPathTransform = AffineTransform.getRotateInstance(rotationAngle, (double) w / 2, (double) h / 2);
             }
             g_combined_wifi_off.drawImage(off_short_path.getCurrentImage(), darkShortPathTransform, null);
@@ -110,11 +113,9 @@ public class Wifi extends Component {
             if(format.equals("H")){
                 rotationAngle = Math.toRadians((Integer.parseInt(directions.get(i)) * 60));
                  darkShortPathTransform = AffineTransform.getRotateInstance(rotationAngle, (double) w / 2, anchory);
-
             }else {
                 rotationAngle = Math.toRadians((Integer.parseInt(directions.get(i)) * 90));
                  darkShortPathTransform = AffineTransform.getRotateInstance(rotationAngle, (double) w / 2, (double) h / 2);
-
             }
             g_combined_wifi_on.drawImage(on_short_path.getCurrentImage(), darkShortPathTransform, null);
         }
@@ -132,5 +133,16 @@ public class Wifi extends Component {
             createCombinedWifiOff(x, y, w, h,angle);
             setCurrentImage(combined_wifi_off);
         }
+    }
+    private void updateDirections() {
+        List<String> newDirections = new ArrayList<>();
+        for (String direction : this.directions) {
+            int newDirection = (Integer.parseInt(direction) + 1) % 4; // for square grid
+            if (this.format.equals("H")) {
+                newDirection = (Integer.parseInt(direction) + 1) % 6;
+            }
+            newDirections.add(String.valueOf(newDirection));
+        }
+        this.directions = newDirections;
     }
 }

@@ -9,11 +9,7 @@ import java.util.List;
 
 public class Lamp extends Component {
     private static BufferedImage lamp;
-    private static BufferedImage light_lamp;
     private BufferedImage combined_lamp;
-    private BufferedImage combined_lamp_light;
-    private BufferedImage combined_lamp_dark;
-
     public static BufferedImage src = ImageLoader.getSrc();
     private AffineTransform darkShortPathTransform;
     private String gridType;

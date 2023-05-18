@@ -2,6 +2,7 @@ package InterfaceGraphique.graphique.ComponentType;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CombinedPath extends Component {
@@ -170,5 +171,10 @@ public class CombinedPath extends Component {
     }
     public int getAngle() {
         return angle;
+    }
+
+    @Override
+    public void setOn(boolean on) {
+        isOn = on;
     }
 }

@@ -62,6 +62,7 @@ public class ElectricityHandler {
     public void propagateElectricity() {
         for (int row = 0; row < components.length; row++) {
             for (int col = 0; col < components[row].length; col++) {
+                System.out.println(components[row][col]);
                 if (components[row][col].equals("S")) {
                     has_electric[row][col] = true;
                     propagateElectricityFromIndex(row, col);
@@ -107,4 +108,11 @@ public class ElectricityHandler {
         return has_electric;
     }
 
+    public String[][] getComponents() {
+        return components;
+    }
+
+    public List<String>[][] getDirections() {
+        return directions;
+    }
 }
