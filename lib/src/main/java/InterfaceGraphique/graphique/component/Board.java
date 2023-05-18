@@ -20,10 +20,10 @@ public class Board extends JPanel {
     private Map<String, Component> directionToComponentMap = new HashMap<>(); // to keep track on the directions of the components
 
 
-    public Board(Game game) {
+    public Board(Game game, int level) {
         this.game = game;
         setLayout(new BorderLayout());
-        add(new ControlPanel(game), BorderLayout.NORTH);
+        add(new ControlPanel(game, level), BorderLayout.NORTH);
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {

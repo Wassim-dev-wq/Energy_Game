@@ -2,20 +2,26 @@ package InterfaceGraphique.graphique.component;
 
 import InterfaceGraphique.Game.Game;
 import InterfaceGraphique.Game.LevelSelection;
+import InterfaceGraphique.algorithm.Level;
+import InterfaceGraphique.graphique.ComponentType.ImageLoader;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.*;
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ControlPanel extends JPanel {
     private Game game;
     private JLabel scoreLabel;
+    private int level;
 
-    public ControlPanel(Game game) {
+    public ControlPanel(Game game, int level) {
         this.game = game;
+        this.level = level;
         setLayout(new FlowLayout(FlowLayout.LEFT));
         setBackground(Color.DARK_GRAY);
 
@@ -64,6 +70,10 @@ public class ControlPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO
+                String file = "/Levels/levels_solution/level" + level + ".nrg";
+                System.out.println(file);
+                test_png t = new test_png(file);
+                JOptionPane.showMessageDialog(game, t);
             }
         });
         add(solutionButton);
