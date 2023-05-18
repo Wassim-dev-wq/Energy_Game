@@ -51,16 +51,16 @@ public class CombinedPath extends Component {
     }
 
     private void createComponents(String format) {
-        off_curved_path = new LongCurved(0, 0, isOn,format);
-        on_curved_path = new LongCurved(0, 0, isOn, format);
-        off_long_path = new LongPath(0, 0, isOn, format);
-        on_long_path = new LongPath(0, 0, isOn, format);
-        off_short_curved = new ShortCurved(0, 0, isOn,format);
-        on_short_curved = new ShortCurved(0, 0, isOn, format);
-        off_medium_curved = new MediumCurved(0, 0, isOn,format);
-        on_medium_curved = new MediumCurved(0, 0, isOn, format);
-        on_empty = new Empty(0, 0, format, isOn);
-        off_empty = new Empty(0, 0, format, isOn);
+        off_curved_path = new LongCurved(0, 0, false,format);
+        on_curved_path = new LongCurved(0, 0, true, format);
+        off_long_path = new LongPath(0, 0, false, format);
+        on_long_path = new LongPath(0, 0, true, format);
+        off_short_curved = new ShortCurved(0, 0, false,format);
+        on_short_curved = new ShortCurved(0, 0, true, format);
+        off_medium_curved = new MediumCurved(0, 0, false,format);
+        on_medium_curved = new MediumCurved(0, 0, true, format);
+        on_empty = new Empty(0, 0, format, true);
+        off_empty = new Empty(0, 0, format, false);
     }
 
     @Override
