@@ -81,31 +81,10 @@ public class test_png extends JPanel{
             throw new RuntimeException(e);
         }
         int x = 0, y = 0, w = 120, h = 120;
-        BufferedImage empty = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-        empty.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
-        y = 360;
         BufferedImage empty_light = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
         empty_light.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
         x = 120;
         y = 240;
-        BufferedImage dark_curved_path = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-        dark_curved_path.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
-        x = 120;
-        y = 120;
-        BufferedImage dark_wifi = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-        dark_wifi.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
-        x = 240;
-        y = 120;
-        BufferedImage dark_lamp = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-        dark_lamp.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
-        x = 0;
-        y = 240;
-        BufferedImage short_path = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-        short_path.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
-        x = 240;
-        y = 240;
-        BufferedImage dark_long_path = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-        dark_long_path.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
         x = 0;
         y = 480;
         BufferedImage energy = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
@@ -134,9 +113,9 @@ public class test_png extends JPanel{
                 if (sources_.get(i).equals(".")) {
                     BufferedImage combined_empty_square_dark = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
                     Graphics2D g_combined_empty_square_dark = combined_empty_square_dark.createGraphics();
-                    g_combined_empty_square_dark.drawImage(empty, 0, 0, null);
+                    g_combined_empty_square_dark.drawImage(empty_light, 0, 0, null);
                     if (directions_.get(i).size() == 0) {
-                        g.drawImage(empty, (i % length_) * 120, u * 120, this);
+                        g.drawImage(empty_light, (i % length_) * 120, u * 120, this);
                         u_y++;
                     } else {
                         int start = Integer.parseInt(directions_.get(i).get(0));
@@ -151,11 +130,11 @@ public class test_png extends JPanel{
                                     g_combined_empty_square_dark.rotate(Math.toRadians((Integer.parseInt(directions_.get(i).get(t)) * 90) - angle), (double) w / 2, (double) h / 2);
                                     angle = Integer.parseInt(directions_.get(i).get(t)) * 90;
                                 }
-                                g_combined_empty_square_dark.drawImage(dark_curved_path, 0, 0, null);
+                                g_combined_empty_square_dark.drawImage(light_curved_path, 0, 0, null);
                             } else if (diff == 2) {
                                 g_combined_empty_square_dark.rotate(Math.toRadians((start * 90) - angle), (double) w / 2, (double) h / 2);
                                 angle = start * 90;
-                                g_combined_empty_square_dark.drawImage(dark_long_path, 0, 0, null);
+                                g_combined_empty_square_dark.drawImage(light_long_path, 0, 0, null);
                             }
                         }
                         g.drawImage(combined_empty_square_dark, (i % length_) * 120, u * 120, this);
@@ -177,27 +156,27 @@ public class test_png extends JPanel{
                 } else if (sources_.get(i).equals("L")) {
                     BufferedImage combined_lamp_square_dark = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
                     Graphics2D g_combined_lamp_square_dark = combined_lamp_square_dark.createGraphics();
-                    g_combined_lamp_square_dark.drawImage(dark_lamp, 0, 0, null);
+                    g_combined_lamp_square_dark.drawImage(light_lamp, 0, 0, null);
                     int angle = 0;
                     for (int i_w = 0; i_w < directions_.get(i).size(); i_w++) {
                         g_combined_lamp_square_dark.rotate(Math.toRadians((Integer.parseInt(directions_.get(i).get(i_w)) * 90) - angle), (double) w / 2, (double) h / 2);
-                        g_combined_lamp_square_dark.drawImage(short_path, 0, 0, null);
+                        g_combined_lamp_square_dark.drawImage(light_short_path, 0, 0, null);
                         angle = Integer.parseInt(directions_.get(i).get(i_w)) * 90;
                     }
-                    g_combined_lamp_square_dark.drawImage(empty, 0, 0, null);
+                    g_combined_lamp_square_dark.drawImage(empty_light, 0, 0, null);
                     g.drawImage(combined_lamp_square_dark, (i % length_) * 120, u * 120, this);
                     u_y++;
                 } else if (sources_.get(i).equals("W")) {
                     BufferedImage combined_wifi_dark_square = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
                     Graphics2D g_combined_wifi_dark_square = combined_wifi_dark_square.createGraphics();
-                    g_combined_wifi_dark_square.drawImage(dark_wifi, 0, 0, null);
+                    g_combined_wifi_dark_square.drawImage(light_wifi, 0, 0, null);
                     int angle = 0;
                     for (int i_w = 0; i_w < directions_.get(i).size(); i_w++) {
                         g_combined_wifi_dark_square.rotate(Math.toRadians((Integer.parseInt(directions_.get(i).get(i_w)) * 90) - angle), (double) w / 2, (double) h / 2);
-                        g_combined_wifi_dark_square.drawImage(short_path, 0, 0, null);
+                        g_combined_wifi_dark_square.drawImage(light_short_path, 0, 0, null);
                         angle = Integer.parseInt(directions_.get(i).get(i_w)) * 90;
                     }
-                    g_combined_wifi_dark_square.drawImage(empty, 0, 0, null);
+                    g_combined_wifi_dark_square.drawImage(empty_light, 0, 0, null);
                     g.drawImage(combined_wifi_dark_square, (i % length_) * 120, u * 120, this);
                     u_y++;
                 }
@@ -210,11 +189,6 @@ public class test_png extends JPanel{
             x = 360;
             y = 0;
             h = 104;
-            BufferedImage empty_hexagone_dark = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-            empty_hexagone_dark.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
-            y = 240;
-            BufferedImage short_path_hexagone_dark = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-            short_path_hexagone_dark.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
             y = 360;
             BufferedImage empty_hexagone_light = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
             empty_hexagone_light.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
@@ -225,12 +199,6 @@ public class test_png extends JPanel{
             BufferedImage short_path_hexagone_light = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
             short_path_hexagone_light.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
             x = 480;
-            y = 120;
-            BufferedImage wifi_hexagone_dark = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-            wifi_hexagone_dark.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
-            y = 240;
-            BufferedImage short_curved_hexagone_path_dark = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-            short_curved_hexagone_path_dark.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
             y = 600;
             BufferedImage wifi_hexagone_light = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
             wifi_hexagone_light.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
@@ -238,12 +206,6 @@ public class test_png extends JPanel{
             BufferedImage short_curved_hexagone_path_light = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
             short_curved_hexagone_path_light.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
             x = 600;
-            y = 120;
-            BufferedImage lamp_hexagone_dark = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-            lamp_hexagone_dark.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
-            y = 240;
-            BufferedImage long_curved_hexagone_path_dark = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-            long_curved_hexagone_path_dark.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
             y = 600;
             BufferedImage lamp_hexagone_light = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
             lamp_hexagone_light.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
@@ -251,9 +213,6 @@ public class test_png extends JPanel{
             BufferedImage long_curved_hexagone_path_light = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
             long_curved_hexagone_path_light.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
             x = 720;
-            y = 240;
-            BufferedImage long_hexagone_path_dark = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-            long_hexagone_path_dark.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
             y = 600;
             BufferedImage long_hexagone_path_light = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
             long_hexagone_path_light.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
@@ -263,14 +222,14 @@ public class test_png extends JPanel{
             for (int i = 0; i < length_ * height_; i++) {
                 BufferedImage combined_empty_hexagone_dark = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
                 Graphics2D g_combined_empty_hexagone_dark = combined_empty_hexagone_dark.createGraphics();
-                g_combined_empty_hexagone_dark.drawImage(empty_hexagone_dark, 0, 0, null);
+                g_combined_empty_hexagone_dark.drawImage(empty_hexagone_light, 0, 0, null);
                 if (sources_.get(i).equals(".")) {
                     if (directions_.get(i).size() == 0) {
                         if (u_y % 2 == 1) {
-                            g.drawImage(empty_hexagone_dark, (i % length_) * 90, ((u * 104) + 52), this);
+                            g.drawImage(empty_hexagone_light, (i % length_) * 90, ((u * 104) + 52), this);
                             u_y++;
                         } else {
-                            g.drawImage(empty_hexagone_dark, (i % length_) * 90, (u * 104), this);
+                            g.drawImage(empty_hexagone_light, (i % length_) * 90, (u * 104), this);
                             u_y++;
                         }
                     } else if (directions_.get(i).size() == 2) {
@@ -280,16 +239,16 @@ public class test_png extends JPanel{
                                 g_combined_empty_hexagone_dark.rotate(Math.toRadians(Integer.parseInt(directions_.get(i).get(0)) * 60), (double) w / 2, (double) h / 2);
                             else
                                 g_combined_empty_hexagone_dark.rotate(Math.toRadians(Integer.parseInt(directions_.get(i).get(1)) * 60), (double) w / 2, (double) h / 2);
-                            g_combined_empty_hexagone_dark.drawImage(short_curved_hexagone_path_dark, 0, 0, null);
+                            g_combined_empty_hexagone_dark.drawImage(short_curved_hexagone_path_light, 0, 0, null);
                         } else if (diff == 3) {
                             g_combined_empty_hexagone_dark.rotate(Math.toRadians(Integer.parseInt(directions_.get(i).get(0)) * 60), (double) w / 2, (double) h / 2);
-                            g_combined_empty_hexagone_dark.drawImage(long_hexagone_path_dark, 0, 0, null);
+                            g_combined_empty_hexagone_dark.drawImage(long_hexagone_path_light, 0, 0, null);
                         } else if (diff == 2 || diff == 4) {
                             if (diff == 2)
                                 g_combined_empty_hexagone_dark.rotate(Math.toRadians(Integer.parseInt(directions_.get(i).get(0)) * 60), (double) w / 2, (double) h / 2);
                             else
                                 g_combined_empty_hexagone_dark.rotate(Math.toRadians(Integer.parseInt(directions_.get(i).get(1)) * 60), (double) w / 2, (double) h / 2);
-                            g_combined_empty_hexagone_dark.drawImage(long_curved_hexagone_path_dark, 0, 0, null);
+                            g_combined_empty_hexagone_dark.drawImage(long_curved_hexagone_path_light, 0, 0, null);
                         }
                         if (u_y % 2 == 1) {
                             g.drawImage(combined_empty_hexagone_dark, (i % length_) * 90, ((u * 104) + 52), this);
@@ -311,11 +270,11 @@ public class test_png extends JPanel{
                                     g_combined_empty_hexagone_dark.rotate(Math.toRadians((Integer.parseInt(directions_.get(i).get(k)) * 60) - angle), (double) w / 2, (double) h / 2);
                                     angle = Integer.parseInt(directions_.get(i).get(k)) * 60;
                                 }
-                                g_combined_empty_hexagone_dark.drawImage(short_curved_hexagone_path_dark, 0, 0, null);
+                                g_combined_empty_hexagone_dark.drawImage(short_curved_hexagone_path_light, 0, 0, null);
                             } else if (diff == 3) {
                                 g_combined_empty_hexagone_dark.rotate(Math.toRadians((start * 60) - angle), (double) w / 2, (double) h / 2);
                                 angle = start * 60;
-                                g_combined_empty_hexagone_dark.drawImage(long_hexagone_path_dark, 0, 0, null);
+                                g_combined_empty_hexagone_dark.drawImage(long_hexagone_path_light, 0, 0, null);
                             } else if (diff == 2 || diff == 4) {
                                 if (diff == 2) {
                                     g_combined_empty_hexagone_dark.rotate(Math.toRadians((start * 60) - angle), (double) w / 2, (double) h / 2);
@@ -324,7 +283,7 @@ public class test_png extends JPanel{
                                     g_combined_empty_hexagone_dark.rotate(Math.toRadians((Integer.parseInt(directions_.get(i).get(k)) * 60) - angle), (double) w / 2, (double) h / 2);
                                     angle = Integer.parseInt(directions_.get(i).get(k)) * 60;
                                 }
-                                g_combined_empty_hexagone_dark.drawImage(long_curved_hexagone_path_dark, 0, 0, null);
+                                g_combined_empty_hexagone_dark.drawImage(long_curved_hexagone_path_light, 0, 0, null);
                             }
                         }
                         if (u_y % 2 == 1) {
@@ -338,14 +297,14 @@ public class test_png extends JPanel{
                 } else if (sources_.get(i).equals("W")) {
                     BufferedImage combined_wifi_dark_hexagone = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
                     Graphics2D g_combined_wifi_dark_hexagone = combined_wifi_dark_hexagone.createGraphics();
-                    g_combined_wifi_dark_hexagone.drawImage(wifi_hexagone_dark, 0, 0, null);
+                    g_combined_wifi_dark_hexagone.drawImage(wifi_hexagone_light, 0, 0, null);
                     int angle = 0;
                     for (int i_w = 0; i_w < directions_.get(i).size(); i_w++) {
                         g_combined_wifi_dark_hexagone.rotate(Math.toRadians((Integer.parseInt(directions_.get(i).get(i_w)) * 60) - angle), (double) w / 2, (double) h / 2);
-                        g_combined_wifi_dark_hexagone.drawImage(short_path_hexagone_dark, 0, 0, null);
+                        g_combined_wifi_dark_hexagone.drawImage(short_path_hexagone_light, 0, 0, null);
                         angle = Integer.parseInt(directions_.get(i).get(i_w)) * 60;
                     }
-                    g_combined_wifi_dark_hexagone.drawImage(empty_hexagone_dark, 0, 0, null);
+                    g_combined_wifi_dark_hexagone.drawImage(empty_hexagone_light, 0, 0, null);
                     if (u_y % 2 == 1) {
                         g.drawImage(combined_wifi_dark_hexagone, (i % length_) * 90, ((u * 104) + 52), this);
                         u_y++;
@@ -360,10 +319,10 @@ public class test_png extends JPanel{
                     int angle = 0;
                     for (int i_w = 0; i_w < directions_.get(i).size(); i_w++) {
                         g_combined_source_hexagone.rotate(Math.toRadians((Integer.parseInt(directions_.get(i).get(i_w)) * 60) - angle), (double) w / 2, (double) h / 2);
-                        g_combined_source_hexagone.drawImage(short_path_hexagone_dark, 0, 0, null);
+                        g_combined_source_hexagone.drawImage(short_path_hexagone_light, 0, 0, null);
                         angle = Integer.parseInt(directions_.get(i).get(i_w)) * 60;
                     }
-                    g_combined_source_hexagone.drawImage(empty_hexagone_dark, 0, 0, null);
+                    g_combined_source_hexagone.drawImage(empty_hexagone_light, 0, 0, null);
                     if (u_y % 2 == 1) {
                         g.drawImage(combined_source_hexagone, (i % length_) * 90, ((u * 104) + 52), this);
                         u_y++;
@@ -374,14 +333,14 @@ public class test_png extends JPanel{
                 } else if (sources_.get(i).equals("L")) {
                     BufferedImage combined_lamp_hexagone_dark = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
                     Graphics2D g_combined_lamp_hexagone_dark = combined_lamp_hexagone_dark.createGraphics();
-                    g_combined_lamp_hexagone_dark.drawImage(lamp_hexagone_dark, 0, 0, null);
+                    g_combined_lamp_hexagone_dark.drawImage(lamp_hexagone_light, 0, 0, null);
                     int angle = 0;
                     for (int i_w = 0; i_w < directions_.get(i).size(); i_w++) {
                         g_combined_lamp_hexagone_dark.rotate(Math.toRadians((Integer.parseInt(directions_.get(i).get(i_w)) * 60) - angle), (double) w / 2, (double) h / 2);
-                        g_combined_lamp_hexagone_dark.drawImage(short_path_hexagone_dark, 0, 0, null);
+                        g_combined_lamp_hexagone_dark.drawImage(short_path_hexagone_light, 0, 0, null);
                         angle = Integer.parseInt(directions_.get(i).get(i_w)) * 60;
                     }
-                    g_combined_lamp_hexagone_dark.drawImage(empty_hexagone_dark, 0, 0, null);
+                    g_combined_lamp_hexagone_dark.drawImage(empty_hexagone_light, 0, 0, null);
                     if (u_y % 2 == 1) {
                         g.drawImage(combined_lamp_hexagone_dark, (i % length_) * 90, ((u * 104) + 52), this);
                         u_y++;
