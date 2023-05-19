@@ -105,23 +105,16 @@ public class CombinedPath extends Component {
             int k = Integer.parseInt(directions.get(i));
             try {
                 difference = k - start;
-                if (difference < 0){
-                    difference *= -1;
-                    int k_ = start;
-                    start = k;
-                    k = k_;
-
-                }
             } catch (NumberFormatException e) {
                 System.out.println("Invalid value : " + e.getMessage());
             }
             if (format.equals("S")){
-                if (difference == 1 || difference == 3){
-                    if (difference == 1){
+                if (difference == 1 || difference == 3 || difference == -3 || difference == -1){
+                    if (difference == 1 || difference == -3){
                         g_combined_path.rotate(Math.toRadians((start*90)-angle), 60, 60);
                         angle = start*90;
                     } else {
-                        g_combined_path.rotate(Math.toRadians((k*90)-angle), 60, 60);
+                        g_combined_path.rotate(Math.toRadians((Integer.parseInt(directions.get(i))*90)-angle), 60, 60);
                         angle = (Integer.parseInt(directions.get(i))*90);
                     }
                     if (isOn) {
@@ -129,7 +122,7 @@ public class CombinedPath extends Component {
                     } else {
                         off_medium_curved.draw(g_combined_path);
                     }
-                }else if (difference == 2){
+                }else if (difference == 2 || difference == -2){
                     g_combined_path.rotate(Math.toRadians((start*90)-angle), 60, 60);
                     angle = start*90;
                     if (isOn) {
@@ -139,12 +132,12 @@ public class CombinedPath extends Component {
                     }
                 }
             } else if (format.equals("H")) {
-                if (difference == 1 || difference == 5){
-                    if (difference == 1){
+                if (difference == 1 || difference == 5 || difference == -5 || difference == -1){
+                    if (difference == 1 || difference == -5){
                         g_combined_path.rotate(Math.toRadians((start*60)-angle), 60, 52);
                         angle = start*60;
                     }else{
-                        g_combined_path.rotate(Math.toRadians((k*60)-angle), 60, 52);
+                        g_combined_path.rotate(Math.toRadians((Integer.parseInt(directions.get(i))*60)-angle), 60, 52);
                         angle = (Integer.parseInt(directions.get(i))*60);
                     }
                     if (isOn) {
@@ -152,7 +145,7 @@ public class CombinedPath extends Component {
                     } else {
                         off_short_curved.draw(g_combined_path);
                     }
-                } else if (difference == 3) {
+                } else if (difference == 3 || difference == -3) {
                     g_combined_path.rotate(Math.toRadians((start*60)-angle), 60, 52);
                     angle = start*60;
                     if (isOn) {
@@ -160,13 +153,13 @@ public class CombinedPath extends Component {
                     } else {
                         off_long_path.draw(g_combined_path);
                     }
-                }else if(difference == 2 || difference == 4){
-                    if (difference == 2){
+                }else if(difference == 2 || difference == 4 || difference == -2 || difference == -4){
+                    if (difference == 2 || difference == -4){
                         g_combined_path.rotate(Math.toRadians((start*60)-angle), 60, 52);
                         angle = start*60;
                     }else{
-                        g_combined_path.rotate(Math.toRadians((k*60)-angle), 60, 52);
-                        angle = (k*60);
+                        g_combined_path.rotate(Math.toRadians((Integer.parseInt(directions.get(i))*60)-angle), 60, 52);
+                        angle = (Integer.parseInt(directions.get(i))*60);
                     }
                     if (isOn) {
                         on_curved_path.draw(g_combined_path);
@@ -204,7 +197,6 @@ public class CombinedPath extends Component {
             }
             newDirections.add(String.valueOf(newDirection));
         }
-        Collections.sort(newDirections);
         this.directions = newDirections;
     }
     @Override
