@@ -19,9 +19,8 @@ public abstract class Component {
 
     public void setOn(boolean isOn) {
     }
-    public boolean getIsOn() {
-        return false;
-    }
+    public abstract boolean getElectric();
+    public abstract boolean getIsOn();
     public Component(int x, int y) {
         this.x = x;
         this.y = y;
@@ -32,6 +31,8 @@ public abstract class Component {
     }
 
     public abstract void rotate();
+
+    public abstract void updates();
 
     public void setCurrentImage(BufferedImage currentImage) {
         this.currentImage = currentImage;

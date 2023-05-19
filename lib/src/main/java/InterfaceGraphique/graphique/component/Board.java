@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -19,10 +20,10 @@ public class Board extends JPanel {
     private Map<String, Component> directionToComponentMap = new HashMap<>(); // to keep track on the directions of the components
 
 
-    public Board(Game game) {
+    public Board(Game game, int level) {
         this.game = game;
         setLayout(new BorderLayout());
-        add(new ControlPanel(game), BorderLayout.NORTH);
+        add(new ControlPanel(game, level), BorderLayout.NORTH);
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -88,6 +89,13 @@ public class Board extends JPanel {
                 }
                 ElectricityHandler electricityHandler = level.getElectricityHandler();
                 electricityHandler.propagateElectricity();
+                System.out.println("UPDATE-START");
+                for (Component[] c : components){
+                    for (Component cs : c){
+                        cs.updates();
+                    }
+                }
+                System.out.println("UPDATE-END");
                 this.repaint();
             }
         }
@@ -99,6 +107,7 @@ public class Board extends JPanel {
         for (int j = 0; j < level.getHeight(); j++) {
             for (int k = 0; k < level.getWidth(); k++) {
                 String tileType = level.getComponents()[j][k];
+//                System.out.println(level.getElectricityHandler().getHasElectric()[j][k]);
                 boolean has_electric = level.getElectricityHandler().getHasElectric()[j][k];
                 int y_value = 0;
                 int x_value = 0;

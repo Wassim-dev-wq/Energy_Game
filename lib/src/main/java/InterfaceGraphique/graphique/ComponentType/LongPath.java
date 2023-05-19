@@ -12,10 +12,24 @@ public class LongPath extends Component {
     public int getAngle() {
         return angle;
     }
+
+    @Override
+    public boolean getElectric() {
+        return false;
+    }
+
+    @Override
+    public boolean getIsOn() {
+        return false;
+    }
+
     private void createLongPathOn(int x, int y, int w, int h, String format) {
         if (on_long_path == null) {
-            if (format.equals("H")) x = 720;
-            else x = 240;
+            if (format.equals("H")){
+                x = 240;
+            } else{
+                x = 720;
+            }
             y = 600;
             on_long_path = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
             on_long_path.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
@@ -25,10 +39,19 @@ public class LongPath extends Component {
     @Override
     public void rotate() {
     }
+
+    @Override
+    public void updates() {
+
+    }
+
     private void createLongPathOff(int x, int y, int w, int h, String format) {
         if (off_long_path == null) {
-            if (format.equals("H")) x = 720;
-            else x = 240;
+            if (format.equals("H")){
+                x = 240;
+            } else{
+                x = 720;
+            }
             y = 240;
             off_long_path = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
             off_long_path.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);

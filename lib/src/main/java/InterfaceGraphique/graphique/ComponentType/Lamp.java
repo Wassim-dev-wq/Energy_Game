@@ -9,11 +9,7 @@ import java.util.List;
 
 public class Lamp extends Component {
     private static BufferedImage lamp;
-    private static BufferedImage light_lamp;
     private BufferedImage combined_lamp;
-    private BufferedImage combined_lamp_light;
-    private BufferedImage combined_lamp_dark;
-
     public static BufferedImage src = ImageLoader.getSrc();
     private AffineTransform darkShortPathTransform;
     private String gridType;
@@ -37,6 +33,12 @@ public class Lamp extends Component {
         }
         updateDirections();
         updateGraphics(0, 0, 120, 120, gridType, angle );
+    }
+
+    @Override
+    public void updates() {
+        System.out.println("update-lamp");
+        updateGraphics(0,0,120,120,gridType,angle);
     }
 
     public Lamp(int x, int y, int w, int h, boolean isOn, List<String> directions, String gridType) {
@@ -108,5 +110,15 @@ public class Lamp extends Component {
     @Override
     public void setOn(boolean isOn) {
         this.isOn = isOn;
+    }
+
+    @Override
+    public boolean getElectric() {
+        return this.isOn;
+    }
+
+    @Override
+    public boolean getIsOn() {
+        return this.isOn;
     }
 }

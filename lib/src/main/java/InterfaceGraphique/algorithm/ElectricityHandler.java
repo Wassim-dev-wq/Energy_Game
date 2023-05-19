@@ -20,10 +20,10 @@ public class ElectricityHandler {
 
     private boolean isConnected(int row1, int col1, int row2, int col2, List<String> directions1, List<String> directions2) {
         for (String dir1 : directions1) {
-            System.out.println("directions1 "+dir1);
+            System.out.println("directions1->"+dir1);
         }
         for (String dir2 : directions2) {
-            System.out.println(dir2);
+            System.out.println("directions2->" +dir2);
         }
         for (String dir1 : directions1) {
             int dir1Int = Integer.parseInt(dir1);
@@ -62,6 +62,7 @@ public class ElectricityHandler {
     public void propagateElectricity() {
         for (int row = 0; row < components.length; row++) {
             for (int col = 0; col < components[row].length; col++) {
+                System.out.println(components[row][col]);
                 if (components[row][col].equals("S")) {
                     has_electric[row][col] = true;
                     propagateElectricityFromIndex(row, col);
@@ -107,4 +108,11 @@ public class ElectricityHandler {
         return has_electric;
     }
 
+    public String[][] getComponents() {
+        return components;
+    }
+
+    public List<String>[][] getDirections() {
+        return directions;
+    }
 }
