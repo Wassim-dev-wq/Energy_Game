@@ -25,10 +25,11 @@ public class LongPath extends Component {
 
     private void createLongPathOn(int x, int y, int w, int h, String format) {
         if (on_long_path == null) {
-            if (format.equals("H")){
+            if (format.equals("S")){
                 x = 240;
             } else{
                 x = 720;
+                h = 104;
             }
             y = 600;
             on_long_path = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
@@ -47,7 +48,7 @@ public class LongPath extends Component {
 
     private void createLongPathOff(int x, int y, int w, int h, String format) {
         if (off_long_path == null) {
-            if (format.equals("H")){
+            if (format.equals("S")){
                 x = 240;
             } else{
                 x = 720;

@@ -5,12 +5,8 @@ import InterfaceGraphique.graphique.ComponentType.ImageLoader;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.URISyntaxException;
-import java.nio.Buffer;
 import java.util.*;
 import java.util.List;
 
@@ -76,7 +72,6 @@ public class test_png extends JPanel{
         Image src = null;
         try {
             src = ImageIO.read(ImageLoader.class.getResourceAsStream("/tuiles.png"));
-//            src = ImageIO.read(new File("./src/tuiles.png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -187,7 +182,6 @@ public class test_png extends JPanel{
             }
         } else {
             x = 360;
-            y = 0;
             h = 104;
             y = 360;
             BufferedImage empty_hexagone_light = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
@@ -199,17 +193,17 @@ public class test_png extends JPanel{
             BufferedImage short_path_hexagone_light = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
             short_path_hexagone_light.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
             x = 480;
-            y = 600;
+            y = 480;
             BufferedImage wifi_hexagone_light = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
             wifi_hexagone_light.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
-            y = 720;
+            y = 600;
             BufferedImage short_curved_hexagone_path_light = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
             short_curved_hexagone_path_light.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
             x = 600;
-            y = 600;
+            y = 480;
             BufferedImage lamp_hexagone_light = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
             lamp_hexagone_light.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
-            y = 720;
+            y = 600;
             BufferedImage long_curved_hexagone_path_light = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
             long_curved_hexagone_path_light.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
             x = 720;
