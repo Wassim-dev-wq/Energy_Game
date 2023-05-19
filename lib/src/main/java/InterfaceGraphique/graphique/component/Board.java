@@ -86,6 +86,11 @@ public class Board extends JPanel {
                         directionToComponentMap.put(direction, clickedComponent);
                     }
                 }
+                for (Map.Entry<String, Component> entry : directionToComponentMap.entrySet()) {
+                    String name = entry.getKey();
+                    Component component = entry.getValue();
+                    System.out.println("Name :"+name+" componenet : "+component+"\n");
+                }
                 ElectricityHandler electricityHandler = level.getElectricityHandler();
                 electricityHandler.propagateElectricity();
                 this.repaint();
