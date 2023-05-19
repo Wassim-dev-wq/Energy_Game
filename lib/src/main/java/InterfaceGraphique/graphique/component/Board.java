@@ -82,7 +82,6 @@ public class Board extends JPanel {
                     for (String direction : clickedComponent.getDirections()) {
                         directionToComponentMap.remove(direction);
                     }
-                    clickedComponent.setOn(true);
                     clickedComponent.rotate();
                     for (String direction : clickedComponent.getDirections()) {
                         directionToComponentMap.put(direction, clickedComponent);
@@ -90,26 +89,14 @@ public class Board extends JPanel {
                 }
                 ElectricityHandler electricityHandler = level.getElectricityHandler();
                 electricityHandler.propagateElectricity();
+                System.out.println("UPDATE-START");
+                for (Component[] c : components){
+                    for (Component cs : c){
+                        cs.updates();
+                    }
+                }
+                System.out.println("UPDATE-END");
                 this.repaint();
-//                for (boolean[] connects: electricityHandler.getHasElectric()){
-//                    for (boolean c: connects){
-//                        System.out.println(c);
-//                    }
-//                }
-//
-//                for (String[] components_: electricityHandler.getComponents()){
-//                    for (String c_: components_){
-//                        System.out.println(c_);
-//                    }
-//                }
-//
-//                for (List<String>[] directions_: electricityHandler.getDirections()){
-//                    for (List<String> d_: directions_){
-//                        System.out.println(d_);
-//                    }
-//                }
-//
-//                System.out.println(directionToComponentMap);
             }
         }
     }
@@ -120,7 +107,7 @@ public class Board extends JPanel {
         for (int j = 0; j < level.getHeight(); j++) {
             for (int k = 0; k < level.getWidth(); k++) {
                 String tileType = level.getComponents()[j][k];
-                System.out.println(level.getElectricityHandler().getHasElectric()[j][k]);
+//                System.out.println(level.getElectricityHandler().getHasElectric()[j][k]);
                 boolean has_electric = level.getElectricityHandler().getHasElectric()[j][k];
                 int y_value = 0;
                 int x_value = 0;

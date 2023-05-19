@@ -35,6 +35,12 @@ public class Lamp extends Component {
         updateGraphics(0, 0, 120, 120, gridType, angle );
     }
 
+    @Override
+    public void updates() {
+        System.out.println("update-lamp");
+        updateGraphics(0,0,120,120,gridType,angle);
+    }
+
     public Lamp(int x, int y, int w, int h, boolean isOn, List<String> directions, String gridType) {
         super(x, y);
         this.isOn = isOn;
@@ -104,5 +110,15 @@ public class Lamp extends Component {
     @Override
     public void setOn(boolean isOn) {
         this.isOn = isOn;
+    }
+
+    @Override
+    public boolean getElectric() {
+        return this.isOn;
+    }
+
+    @Override
+    public boolean getIsOn() {
+        return this.isOn;
     }
 }

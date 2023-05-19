@@ -22,6 +22,12 @@ public class LongCurved extends Component {
     @Override
     public void rotate() {
     }
+
+    @Override
+    public void updates() {
+
+    }
+
     private void createLongCurvedOff(int x, int y, int w, int h) {
         if (off_long_curved == null) {
             x = 600;
@@ -38,6 +44,17 @@ public class LongCurved extends Component {
     public int getAngle() {
         return angle;
     }
+
+    @Override
+    public boolean getElectric() {
+        return false;
+    }
+
+    @Override
+    public boolean getIsOn() {
+        return false;
+    }
+
     private void updateGraphics(int x, int y, int w, int h, boolean isOn) {
         if (isOn) {
             createLongCurvedOn(x, y, w, h);

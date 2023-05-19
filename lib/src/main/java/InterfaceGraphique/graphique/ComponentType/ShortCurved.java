@@ -29,6 +29,12 @@ public class ShortCurved extends Component {
     @Override
     public void rotate() {
     }
+
+    @Override
+    public void updates() {
+
+    }
+
     public ShortCurved(int x, int y, boolean isOn, String format) {
         super(x, y);
         updateGraphics(x, y, 120, 104, isOn);
@@ -36,6 +42,17 @@ public class ShortCurved extends Component {
     public int getAngle() {
         return angle;
     }
+
+    @Override
+    public boolean getElectric() {
+        return false;
+    }
+
+    @Override
+    public boolean getIsOn() {
+        return false;
+    }
+
     private void updateGraphics(int x, int y, int w, int h, boolean isOn) {
         if (isOn) {
             createShortCurvedOn(x, y, w, h);

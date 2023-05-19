@@ -12,6 +12,17 @@ public class LongPath extends Component {
     public int getAngle() {
         return angle;
     }
+
+    @Override
+    public boolean getElectric() {
+        return false;
+    }
+
+    @Override
+    public boolean getIsOn() {
+        return false;
+    }
+
     private void createLongPathOn(int x, int y, int w, int h, String format) {
         if (on_long_path == null) {
             if (format.equals("H")){
@@ -28,6 +39,12 @@ public class LongPath extends Component {
     @Override
     public void rotate() {
     }
+
+    @Override
+    public void updates() {
+
+    }
+
     private void createLongPathOff(int x, int y, int w, int h, String format) {
         if (off_long_path == null) {
             if (format.equals("H")){

@@ -20,10 +20,10 @@ public class ElectricityHandler {
 
     private boolean isConnected(int row1, int col1, int row2, int col2, List<String> directions1, List<String> directions2) {
         for (String dir1 : directions1) {
-            System.out.println("directions1 "+dir1);
+            System.out.println("directions1->"+dir1);
         }
         for (String dir2 : directions2) {
-            System.out.println(dir2);
+            System.out.println("directions2->" +dir2);
         }
         for (String dir1 : directions1) {
             int dir1Int = Integer.parseInt(dir1);

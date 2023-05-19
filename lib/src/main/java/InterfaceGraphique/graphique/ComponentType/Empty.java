@@ -16,6 +16,12 @@ public class Empty extends Component {
 @Override
 public void rotate() {
 }
+
+    @Override
+    public void updates() {
+        System.out.println("update-empty");
+    }
+
     public Empty(int x, int y, String f, boolean electric) {
         super(x, y);
         createEmpty(f, electric);
@@ -25,6 +31,17 @@ public void rotate() {
     public int getAngle() {
         return this.angle;
     }
+
+    @Override
+    public boolean getElectric() {
+        return false;
+    }
+
+    @Override
+    public boolean getIsOn() {
+        return false;
+    }
+
     public void createEmpty(String format, boolean electric){
         int x = 0;
         int y = 0;

@@ -22,6 +22,12 @@ public class ShortPath extends Component {
     @Override
     public void rotate() {
     }
+
+    @Override
+    public void updates() {
+
+    }
+
     private void createShortPathOff(int x, int y, int w, int h, String format) {
         if (off_short_path == null) {
             if (format.equals("H")) x = 360;
@@ -42,6 +48,16 @@ public class ShortPath extends Component {
     @Override
     public int getAngle() {
         return this.angle;
+    }
+
+    @Override
+    public boolean getElectric() {
+        return false;
+    }
+
+    @Override
+    public boolean getIsOn() {
+        return false;
     }
 
 

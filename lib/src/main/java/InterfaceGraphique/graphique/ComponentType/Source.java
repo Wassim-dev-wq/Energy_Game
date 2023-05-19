@@ -15,24 +15,32 @@ public class Source extends Component {
     private List<String> directions;
     private String gridType;
     private int angle;
+
+    private boolean isOn = true;
     private boolean isFirstRotation = true;
 //    int angle;
     @Override
     public void rotate() {
-        if (gridType.equals("S")) {
-            this.angle += 90;
-            if (this.angle > 270) {
-                this.angle = 0;
-            }
-        } else {
-            this.angle += 60;
-            if (this.angle >  300) {
-                this.angle = 0;
-            }
-        }
-        updateDirections();
-        updateGraphics(0, 0, 120, 120, gridType, angle);
+//        if (gridType.equals("S")) {
+//            this.angle += 90;
+//            if (this.angle > 270) {
+//                this.angle = 0;
+//            }
+//        } else {
+//            this.angle += 60;
+//            if (this.angle >  300) {
+//                this.angle = 0;
+//            }
+//        }
+//        updateDirections();
+//        updateGraphics(0, 0, 120, 120, gridType, angle);
     }
+
+    @Override
+    public void updates() {
+
+    }
+
     public Source(int x, int y, int w, int h, List<String> directions, String format) {
         super(x, y);
         this.directions = directions;
@@ -96,5 +104,14 @@ public class Source extends Component {
             newDirections.add(String.valueOf(newDirection));
         }
         this.directions = newDirections;
+    }
+
+    public boolean getElectric(){
+        return true;
+    }
+
+    @Override
+    public boolean getIsOn() {
+        return true;
     }
 }

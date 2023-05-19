@@ -19,6 +19,12 @@ public class MediumCurved extends Component {
     @Override
     public void rotate() {
     }
+
+    @Override
+    public void updates() {
+
+    }
+
     private void createMediumCurvedOff(int x, int y, int w, int h) {
         if (off_medium_curved == null) {
             x = 120;
@@ -35,6 +41,16 @@ public class MediumCurved extends Component {
 
     public int getAngle() {
         return angle;
+    }
+
+    @Override
+    public boolean getElectric() {
+        return false;
+    }
+
+    @Override
+    public boolean getIsOn() {
+        return false;
     }
 
     private void updateGraphics(int x, int y, int w, int h, boolean isOn) {

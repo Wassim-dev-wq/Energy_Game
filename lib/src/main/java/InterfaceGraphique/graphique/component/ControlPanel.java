@@ -69,7 +69,6 @@ public class ControlPanel extends JPanel {
         solutionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO
                 String file = "/Levels/levels_solution/level" + level + ".nrg";
                 System.out.println(file);
                 test_png t = new test_png(file);

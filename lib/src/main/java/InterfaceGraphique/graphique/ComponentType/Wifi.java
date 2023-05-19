@@ -39,6 +39,12 @@ public class Wifi extends Component {
         updateDirections();
         updateGraphics(0, 0, 120, 120, angle);
     }
+
+    @Override
+    public void updates() {
+        updateGraphics(0, 0, 120, 120, angle);
+    }
+
     public Wifi(int x, int y, int w, int h, boolean isOn, List<String> directions, String gridType) {
         super(x, y);
         this.isOn = isOn;
@@ -83,6 +89,17 @@ public class Wifi extends Component {
     public int getAngle() {
         return angle;
     }
+
+    @Override
+    public boolean getElectric() {
+        return false;
+    }
+
+    @Override
+    public boolean getIsOn() {
+        return isOn;
+    }
+
     private void updateGraphics(int x, int y, int w, int h, int angle) {
         createCombinedWifi(x, y, w, h, format);
         setCurrentImage(combined_wifi);
