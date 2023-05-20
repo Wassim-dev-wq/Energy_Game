@@ -93,7 +93,7 @@ public class ElectricityHandler {
             directions = new int[][] {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
         } else if (gridType.equals("H")) {
             // Modify directions to include all neighboring cells in a hexagonal grid
-            directions = new int[][] {{-1, 0}, {-1, -1}, {0, -1}, {1, 0}, {-1, 1}, {0, 1}};
+            directions = new int[][] {{-1, 0}, {1, 1}, {0, -1}, {1, 0}, {1, -1}, {0, 1}};
         } else {
             throw new IllegalArgumentException("Invalid grid type: " + gridType);
         }
@@ -118,6 +118,16 @@ public class ElectricityHandler {
                         if (!has_electric[connRow][connCol]) {
                             LOGGER.info("Propagating electricity to cell at connRow: " + connRow + ", connCol: " + connCol);
                             has_electric[connRow][connCol] = true;
+                            if (components[connRow][connCol].equals("W")){
+                                for (int i=0; i<components.length; i++){
+                                    for (int j=0; j<components[i].length; j++){
+                                        if (components[i][j].equals("W")){
+                                            has_electric[i][j] = true;
+                                            propagateElectricityFromIndex(i, j);
+                                        }
+                                    }
+                                }
+                            }
                             propagateElectricityFromIndex(connRow, connCol);
                         }
                     }
