@@ -3,11 +3,10 @@ package InterfaceGraphique.graphique.ComponentType;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class CombinedPath extends Component {
-    private List<String> directions;
+    private List<Integer> directions;
 
     private LongCurved off_curved_path;
     private LongCurved on_curved_path;
@@ -27,7 +26,7 @@ public class CombinedPath extends Component {
     private int angle;
 
 
-    public CombinedPath(int x, int y, List<String> directions, boolean isOn, String format) {
+    public CombinedPath(int x, int y, List<Integer> directions, boolean isOn, String format) {
         super(x, y);
         this.format = format;
         this._x = x;
@@ -88,7 +87,7 @@ public class CombinedPath extends Component {
     }
 
     @Override
-    public List<String> getDirections() {
+    public List<Integer> getDirections() {
         return this.directions;
     }
     private void updateGraphics(boolean isOn, String format,int angle) {
@@ -99,10 +98,10 @@ public class CombinedPath extends Component {
         }
         BufferedImage combined_path = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g_combined_path = combined_path.createGraphics();
-        int start = Integer.parseInt(directions.get(0));
+        int start = directions.get(0);
         for (int i = 1; i<directions.size(); i++){
             int difference = 0;
-            int k = Integer.parseInt(directions.get(i));
+            int k = directions.get(i);
             try {
                 difference = k - start;
             } catch (NumberFormatException e) {
@@ -114,8 +113,8 @@ public class CombinedPath extends Component {
                         g_combined_path.rotate(Math.toRadians((start*90)-angle), 60, 60);
                         angle = start*90;
                     } else {
-                        g_combined_path.rotate(Math.toRadians((Integer.parseInt(directions.get(i))*90)-angle), 60, 60);
-                        angle = (Integer.parseInt(directions.get(i))*90);
+                        g_combined_path.rotate(Math.toRadians((directions.get(i)*90)-angle), 60, 60);
+                        angle = (directions.get(i))*90;
                     }
                     if (isOn) {
                         on_medium_curved.draw(g_combined_path);
@@ -137,8 +136,8 @@ public class CombinedPath extends Component {
                         g_combined_path.rotate(Math.toRadians((start*60)-angle), 60, 52);
                         angle = start*60;
                     }else{
-                        g_combined_path.rotate(Math.toRadians((Integer.parseInt(directions.get(i))*60)-angle), 60, 52);
-                        angle = (Integer.parseInt(directions.get(i))*60);
+                        g_combined_path.rotate(Math.toRadians((directions.get(i)*60)-angle), 60, 52);
+                        angle = (directions.get(i)*60);
                     }
                     if (isOn) {
                         on_short_curved.draw(g_combined_path);
@@ -158,8 +157,8 @@ public class CombinedPath extends Component {
                         g_combined_path.rotate(Math.toRadians((start*60)-angle), 60, 52);
                         angle = start*60;
                     }else{
-                        g_combined_path.rotate(Math.toRadians((Integer.parseInt(directions.get(i))*60)-angle), 60, 52);
-                        angle = (Integer.parseInt(directions.get(i))*60);
+                        g_combined_path.rotate(Math.toRadians((directions.get(i)*60)-angle), 60, 52);
+                        angle = (directions.get(i)*60);
                     }
                     if (isOn) {
                         on_curved_path.draw(g_combined_path);
@@ -187,17 +186,18 @@ public class CombinedPath extends Component {
     public void setOn(boolean on) {
         this.isOn = on;
     }
-
-    private void updateDirections() {
-        List<String> newDirections = new ArrayList<>();
-        for (String direction : this.directions) {
-            int newDirection = (Integer.parseInt(direction) + 1) % 4; // for square grid
+    @Override
+    public ArrayList<Integer> previewDirections() {
+        System.out.println("Before update Directions: " + this.directions.toString());
+        List<Integer> newDirections = new ArrayList<>();
+        for (Integer direction : this.directions) {
+            int newDirection = (direction + 1) % 4;
             if (this.format.equals("H")) {
-                newDirection = (Integer.parseInt(direction) + 1) % 6;
+                newDirection = (direction + 1) % 6;
             }
-            newDirections.add(String.valueOf(newDirection));
+            newDirections.add(newDirection);
         }
-        this.directions = newDirections;
+        return (ArrayList<Integer>) newDirections;
     }
     @Override
     public boolean getElectric() {

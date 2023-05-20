@@ -12,7 +12,7 @@ public class Source extends Component {
 
     public static BufferedImage src = ImageLoader.getSrc();
     private AffineTransform shortPathTransform;
-    private List<String> directions;
+    private List<Integer> directions;
     private String gridType;
     private int angle;
 
@@ -41,13 +41,13 @@ public class Source extends Component {
 
     }
 
-    public Source(int x, int y, int w, int h, List<String> directions, String format) {
+    public Source(int x, int y, int w, int h, List<Integer> directions, String format) {
         super(x, y);
         this.directions = directions;
         this.gridType = format;
         updateGraphics(x, y, w, h, format, angle);
     }
-    public List<String> getDirections() {
+    public List<Integer> getDirections() {
         return this.directions;
     }
 
@@ -73,10 +73,10 @@ public class Source extends Component {
         for (int i=0; i<directions.size(); i++){
             double rotationAngle;
             if(gridType.equals("S")){
-                rotationAngle = Math.toRadians((Integer.parseInt(directions.get(i))*90));
+                rotationAngle = Math.toRadians(directions.get(i)*90);
                 shortPathTransform = AffineTransform.getRotateInstance(rotationAngle, (double) w / 2, (double) h / 2);
             }else {
-                rotationAngle = Math.toRadians((Integer.parseInt(directions.get(i))*60));
+                rotationAngle = Math.toRadians(directions.get(i)*60);
                 shortPathTransform = AffineTransform.getRotateInstance(rotationAngle, (double) w / 2, anchory);
             }
             g_combined_source_off.drawImage(on_short_path.getCurrentImage(), shortPathTransform, null);
@@ -94,14 +94,15 @@ public class Source extends Component {
         createCombinedSource(x, y, w, h, gridType, angle);
         setCurrentImage(combined_source);
     }
-    private void updateDirections() {
-        List<String> newDirections = new ArrayList<>();
-        for (String direction : this.directions) {
-            int newDirection = (Integer.parseInt(direction) + 1) % 4; // for square grid
+    @Override
+    public void updateDirections() {
+        List<Integer> newDirections = new ArrayList<>();
+        for (Integer direction : this.directions) {
+            int newDirection = (direction + 1) % 4; // for square grid
             if (this.gridType.equals("H")) {
-                newDirection = (Integer.parseInt(direction) + 1) % 6;
+                newDirection = (direction + 1) % 6;
             }
-            newDirections.add(String.valueOf(newDirection));
+            newDirections.add(newDirection);
         }
         this.directions = newDirections;
     }

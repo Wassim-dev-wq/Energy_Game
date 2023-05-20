@@ -9,7 +9,7 @@ public class Components {
     // Here we create a map to store our component objects.
     // This is so we can retrieve them again later without having to create, so we can avoid creating them every time we rotate
     private static Map<String, Component> componentsMap = new HashMap<>();
-    public static Component createComponent(String type, int x, int y, int width, int height, boolean hasElectric, List<String> directions, String gridType) {
+    public static Component createComponent(String type, int x, int y, int width, int height, boolean hasElectric, List<Integer> directions, String gridType) {
         // Here we generate a unique key for our component.
         // This key is based on all the parameters of the component
         String key = type + x + y + width + height + hasElectric + directions + gridType;

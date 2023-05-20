@@ -13,6 +13,7 @@ public abstract class Component {
     private Graphics2D currentGraphics;
     protected int width = 120;
     protected int height = 120;
+
     public abstract int getAngle();
 
     boolean isOn;
@@ -33,6 +34,8 @@ public abstract class Component {
     public abstract void rotate();
 
     public abstract void updates();
+    public  void updateDirections(){};
+    public void setAngles() {}
 
     public void setCurrentImage(BufferedImage currentImage) {
         this.currentImage = currentImage;
@@ -46,13 +49,23 @@ public abstract class Component {
             g2d.drawImage(currentGraphics.getDeviceConfiguration().createCompatibleImage(120, 120), x, y, null);
         }
     }
+    public ArrayList<Integer> previewDirections() {return new ArrayList<Integer>();}
 
     protected BufferedImage getCurrentImage() {
         return currentImage;
     }
 
 
-    public List<String> getDirections() {
+    public List<Integer> getDirections() {
         return new ArrayList<>();
     }
+
+    public int getX() {
+        return this.x;
+    }
+
+    public int getY() {
+        return this.y;
+    }
+
 }

@@ -15,7 +15,7 @@ public class Lamp extends Component {
     private String gridType;
     private int angle ;
     private boolean isOn;
-    private List<String> directions;
+    private List<Integer> directions;
     private boolean isFirstRotation = true;
 
     @Override
@@ -41,17 +41,14 @@ public class Lamp extends Component {
         updateGraphics(0,0,120,120,gridType,angle);
     }
 
-    public Lamp(int x, int y, int w, int h, boolean isOn, List<String> directions, String gridType) {
+    public Lamp(int x, int y, int w, int h, boolean isOn, List<Integer> directions, String gridType) {
         super(x, y);
         this.isOn = isOn;
         this.directions = directions;
         this.gridType = gridType;
         updateGraphics(x, y, w, h, gridType, angle);
     }
-    @Override
-    public List<String> getDirections() {
-        return this.directions;
-    }
+
     private void createCombinedLamp(int x, int y, int w, int h, String gridType,int angle) {
         if (isOn) y = 480;
         else y = 120;
@@ -77,10 +74,10 @@ public class Lamp extends Component {
         for (int i=0; i<directions.size(); i++){
             double rotationAngle;
             if(gridType.equals("S")){
-                rotationAngle = Math.toRadians((Integer.parseInt(directions.get(i))*90));
+                rotationAngle = Math.toRadians((directions.get(i)*90));
                 darkShortPathTransform = AffineTransform.getRotateInstance(rotationAngle, (double) w / 2, (double) h / 2);
             }else {
-                rotationAngle = Math.toRadians((Integer.parseInt(directions.get(i))*60));
+                rotationAngle = Math.toRadians((directions.get(i)*60));
                 darkShortPathTransform = AffineTransform.getRotateInstance(rotationAngle, (double) w / 2, anchory);
             }
             g_combined_lamp_dark.drawImage(shortPath.getCurrentImage(), darkShortPathTransform, null);
@@ -93,16 +90,40 @@ public class Lamp extends Component {
         createCombinedLamp(x, y, w, h, gridType,angle);
         setCurrentImage(combined_lamp);
     }
-    private void updateDirections() {
-        List<String> newDirections = new ArrayList<>();
-        for (String direction : this.directions) {
-            int newDirection = (Integer.parseInt(direction) + 1) % 4; // for square grid
+    public void updateDirections() {
+        System.out.println("Before update Directions: " + this.directions.toString());
+        List<Integer> newDirections = new ArrayList<>();
+        for (Integer direction : this.directions) {
+            System.out.println("Direction = " +direction);
+            int newDirection = (direction + 1) % 4;
+
             if (this.gridType.equals("H")) {
-                newDirection = (Integer.parseInt(direction) + 1) % 6;
+                newDirection = (direction + 1) % 6;
             }
-            newDirections.add(String.valueOf(newDirection));
+            newDirections.add(newDirection);
         }
         this.directions = newDirections;
+        System.out.println("After updateDirections: " + this.directions);
+    }
+
+
+    public ArrayList<Integer> previewDirections() {
+        System.out.println("Before update Directions: " + this.directions.toString());
+        List<Integer> newDirections = new ArrayList<>();
+        for (Integer direction : this.directions) {
+            System.out.println("Direction = " +direction);
+            int newDirection = (direction + 1) % 4;
+
+            if (this.gridType.equals("H")) {
+                newDirection = (direction + 1) % 6;
+            }
+            newDirections.add(newDirection);
+        }
+        return (ArrayList<Integer>) newDirections;
+    }
+    @Override
+    public List<Integer> getDirections() {
+        return this.directions;
     }
     public int getAngle() {
         return angle;
