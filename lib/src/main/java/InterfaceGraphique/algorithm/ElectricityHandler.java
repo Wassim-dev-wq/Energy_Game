@@ -53,13 +53,24 @@ public class ElectricityHandler {
             LOGGER.info("Grid type: S, Connection status: " + connectionStatus);
             return connectionStatus;
         } else if (gridType.equals("H")) {
-            boolean connectionStatus = ((sourceDir == 0 && targetDir == 3 && sourceRow == targetRow + 1) ||
-                    (sourceDir == 1 && targetDir == 4 && sourceCol == targetCol - 1 && sourceRow == targetRow) ||  // Updated condition
-                    (sourceDir == 2 && targetDir == 5 && sourceCol == targetCol - 1) ||
-                    (sourceDir == 3 && targetDir == 0 && sourceRow == targetRow - 1) ||
-                    (sourceDir == 4 && targetDir == 1 && sourceCol == targetCol + 1 && sourceRow == targetRow - 1) ||
-                    (sourceDir == 5 && targetDir == 2 && sourceCol == targetCol + 1));
+            boolean connectionStatus;
+            if (sourceCol % 2 == 0){
+                connectionStatus = ((sourceDir == 0 && targetDir == 3 && sourceRow == targetRow + 1 && sourceCol == targetCol) ||
+                        (sourceDir == 1 && targetDir == 4 && sourceCol == targetCol - 1 && sourceRow == targetRow + 1) ||  // Updated condition
+                        (sourceDir == 2 && targetDir == 5 && sourceRow == targetRow && sourceCol == targetCol - 1) ||
+                        (sourceDir == 3 && targetDir == 0 && sourceRow == targetRow - 1 && sourceCol == targetCol) ||
+                        (sourceDir == 4 && targetDir == 1 && sourceCol == targetCol + 1 && sourceRow == targetRow) ||
+                        (sourceDir == 5 && targetDir == 2 && sourceCol == targetCol + 1 && sourceRow == targetRow + 1));
 
+            }else{
+                connectionStatus = ((sourceDir == 0 && targetDir == 3 && sourceRow == targetRow + 1 && sourceCol == targetCol) ||
+                        (sourceDir == 1 && targetDir == 4 && sourceCol == targetCol - 1 && sourceRow == targetRow) ||  // Updated condition
+                        (sourceDir == 2 && targetDir == 5 && sourceRow == targetRow - 1 && sourceCol == targetCol - 1) ||
+                        (sourceDir == 3 && targetDir == 0 && sourceRow == targetRow - 1 && sourceCol == targetCol) ||
+                        (sourceDir == 4 && targetDir == 1 && sourceCol == targetCol + 1 && sourceRow == targetRow - 1) ||
+                        (sourceDir == 5 && targetDir == 2 && sourceCol == targetCol + 1 && sourceRow == targetRow));
+
+            }
 
             LOGGER.info("Grid type: H, Connection status: " + connectionStatus);
             return connectionStatus;
@@ -92,8 +103,12 @@ public class ElectricityHandler {
         if (gridType.equals("S")) {
             directions = new int[][] {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
         } else if (gridType.equals("H")) {
+            if (sourceCol % 2 != 0){
+                directions = new int[][] {{-1, 0}, {1, 1}, {0, -1}, {1, 0}, {1, -1}, {0, 1}};
+            }else{
+                directions = new int[][] {{-1, 0}, {-1, -1}, {0, -1}, {1, 0}, {-1, 1}, {0, 1}};
+            }
             // Modify directions to include all neighboring cells in a hexagonal grid
-            directions = new int[][] {{-1, 0}, {-1, -1}, {0, -1}, {1, 0}, {-1, 1}, {0, 1}};
         } else {
             throw new IllegalArgumentException("Invalid grid type: " + gridType);
         }
@@ -104,6 +119,7 @@ public class ElectricityHandler {
             if (newRow >= 0 && newRow < components.length && newCol >= 0 && newCol < components[newRow].length) {
                 boolean isNotEmptyPath = components[newRow][newCol].equals(".") && !this.directions[newRow][newCol].isEmpty() ||
                         components[newRow][newCol].equals("L") || components[newRow][newCol].equals("W");
+                LOGGER.info("sourceRow -> " + sourceRow + ", sourceCol -> " + sourceCol);
                 LOGGER.info("Processing cell at newRow: " + newRow + ", newCol: " + newCol + ". isNotEmptyPath: " + isNotEmptyPath);
                 if (isNotEmptyPath) {
                     List<Integer> directions1 = this.directions[sourceRow][sourceCol];
@@ -118,6 +134,16 @@ public class ElectricityHandler {
                         if (!has_electric[connRow][connCol]) {
                             LOGGER.info("Propagating electricity to cell at connRow: " + connRow + ", connCol: " + connCol);
                             has_electric[connRow][connCol] = true;
+                            if (components[connRow][connCol].equals("W")){
+                                for (int i=0; i<components.length; i++){
+                                    for (int j=0; j<components[i].length; j++){
+                                        if (components[i][j].equals("W")){
+                                            has_electric[i][j] = true;
+                                            propagateElectricityFromIndex(i, j);
+                                        }
+                                    }
+                                }
+                            }
                             propagateElectricityFromIndex(connRow, connCol);
                         }
                     }
