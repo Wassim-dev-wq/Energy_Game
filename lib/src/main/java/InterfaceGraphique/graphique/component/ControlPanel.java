@@ -28,8 +28,10 @@ public class ControlPanel extends JPanel {
         Color buttonTextColor = Color.BLACK;
         createHomeButton(buttonTextColor);
         createHelpButton(buttonTextColor);
-        createSolutionButton(buttonTextColor);
-        createScoreLabel();
+        if (level>=0){
+            createSolutionButton(buttonTextColor);
+            createScoreLabel();
+        }
     }
 
     private void createHomeButton(Color buttonTextColor) {
