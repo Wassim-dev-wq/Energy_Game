@@ -23,6 +23,11 @@ public class LongPath extends Component {
         return false;
     }
 
+    @Override
+    public String getName() {
+        return null;
+    }
+
     private void createLongPathOn(int x, int y, int w, int h, String format) {
         if (on_long_path == null) {
             if (format.equals("S")){

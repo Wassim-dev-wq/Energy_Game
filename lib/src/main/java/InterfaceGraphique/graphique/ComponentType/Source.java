@@ -115,4 +115,9 @@ public class Source extends Component {
     public boolean getIsOn() {
         return true;
     }
+
+    @Override
+    public String getName() {
+        return "Source";
+    }
 }

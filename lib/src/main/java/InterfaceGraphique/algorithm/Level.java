@@ -1,9 +1,6 @@
 package InterfaceGraphique.algorithm;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -46,9 +43,9 @@ public class Level {
 
     public Level(String levelFilePath) {
         LOGGER.info("Parsing level file: " + levelFilePath);
-
         try {
             InputStream levelStream = getClass().getResourceAsStream(levelFilePath);
+            assert levelStream != null;
             BufferedReader br = new BufferedReader(new InputStreamReader(levelStream));
             String line;
 

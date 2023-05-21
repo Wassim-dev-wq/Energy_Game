@@ -22,6 +22,8 @@ public abstract class Component {
     }
     public abstract boolean getElectric();
     public abstract boolean getIsOn();
+
+    public abstract String getName();
     public Component(int x, int y) {
         this.x = x;
         this.y = y;

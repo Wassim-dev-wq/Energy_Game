@@ -178,6 +178,12 @@ public class CombinedPath extends Component {
     public boolean getIsOn() {
         return isOn;
     }
+
+    @Override
+    public String getName() {
+        return "CombinedPath";
+    }
+
     public int getAngle() {
         return angle;
     }

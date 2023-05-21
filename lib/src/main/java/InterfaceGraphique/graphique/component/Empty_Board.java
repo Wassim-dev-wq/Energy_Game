@@ -5,6 +5,7 @@ import InterfaceGraphique.Game.Game;
 import InterfaceGraphique.Game.LevelSelection;
 import InterfaceGraphique.algorithm.Level;
 import InterfaceGraphique.graphique.ComponentType.Component;
+import InterfaceGraphique.graphique.ComponentType.Empty;
 
 
 import javax.swing.*;
@@ -37,6 +38,11 @@ public class Empty_Board extends JPanel {
         }
 
         this.components = new Component[height][width];
+        for (int i=0; i<height; i++){
+            for (int j=0; j<width; j++){
+                components[i][j] = new Empty(0, 0, format, false);
+            }
+        }
         setLayout(new BorderLayout());
         add(new ControlPanel(game, -1, levelsType,levelSelection), BorderLayout.NORTH);
         addMouseListener(new MouseAdapter() {
@@ -50,9 +56,22 @@ public class Empty_Board extends JPanel {
         String levelName = "level"+levelNumber;
         String directoryPath = "src/main/resources/Levels/created_levels/";
         String fileName = levelName + ".nrg";
-        String filePath = directoryPath + fileName;
+        String userDirectory = new File("").getAbsolutePath();
+        String filePath = userDirectory + "/lib/src/main/resources/Levels/created_levels/" + fileName;
+        try {
+            File myObj = new File(filePath);
+            if (myObj.createNewFile()) {
+                System.out.println("File created: " + myObj.getName());
+            } else {
+                System.out.println("File already exists.");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
         this.saveLevelToFile(filePath);
-        saveButton.setForeground(Color.WHITE);
+//        saveButton.setForeground(Color.WHITE);
+        saveButton.setForeground(Color.BLACK);
         saveButton.setBackground(new Color(59, 89, 182));
         saveButton.setFont(new Font("Arial", Font.BOLD, 14));
         saveButton.setFocusPainted(false);
@@ -78,20 +97,27 @@ public class Empty_Board extends JPanel {
     private void handleClick(int x, int y, String levelName) {
         int clickedRow = y / 120;
         int clickedCol = x / 120;
+        if (clickedRow > 0) clickedRow -= 1;
+        if (clickedCol > 0) clickedCol -= 1;
+        System.out.println("(clickedRow, clickedCol) -> (" + clickedRow + ", " + clickedCol + ")");
         Component clickedComponent = components[clickedRow][clickedCol];
         if (clickedComponent != null) {
-            String currentState = clickedComponent.toString();
+            String currentState = clickedComponent.getName();
+            System.out.println(currentState);
             String newState = ".";
             switch (currentState) {
-                case ".":
+                case "Empty":
                     newState = "L";
                     System.out.println("YES");
                     break;
-                case "L":
+                case "Lamp":
                     newState = "W";
                     break;
-                case "W":
+                case "Wifi":
                     newState = ".";
+                    break;
+                case "Source":
+                    newState = "S";
                     break;
             }
             int x_value = clickedCol * 120;
@@ -99,9 +125,10 @@ public class Empty_Board extends JPanel {
             int width = 120;
             int height = this.format.equals("S") ? 120 : 104;
             components[clickedRow][clickedCol] = Components.createComponent(newState, x_value, y_value, width, height, true, new ArrayList<>(), format);
-            String directoryPath = "src/main/resources/Levels/created_levels/";
+            System.out.println(components[clickedRow][clickedCol]);
+            String userDirectory = new File("").getAbsolutePath();
             String fileName = levelName + ".nrg";
-            String filePath = directoryPath + fileName;
+            String filePath = userDirectory + "/lib/src/main/resources/Levels/created_levels/" + fileName;
             boolean isSaved = this.saveLevelToFile(filePath);
             loadAndDisplayLevel(filePath);
             this.repaint();

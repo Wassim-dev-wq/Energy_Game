@@ -18,9 +18,11 @@ public class LevelSelection extends JPanel {
     private int levelNumber= 10;
     private int created_levels ;
     public LevelSelection(Game game, String buttonType) {
-        File createdLevelsDir = new File("src/main/resources/Levels/created_levels/");
+        String userDirectory = new File("").getAbsolutePath();
+        File createdLevelsDir = new File(userDirectory + "/lib/src/main/resources/Levels/created_levels/");
         File[] files = createdLevelsDir.listFiles();
         int created_levels = (files != null) ? files.length : 0;
+        this.created_levels = created_levels;
         this.game = game;
         this.buttonType = buttonType;
         setLayout(new BorderLayout());
@@ -43,7 +45,8 @@ public class LevelSelection extends JPanel {
         JButton homeButton = new JButton("Home");
         homeButton.setFont(new Font("Arial", Font.BOLD, 16));
         homeButton.setBackground(new Color(51, 150, 255));
-        homeButton.setForeground(Color.WHITE);
+//        homeButton.setForeground(Color.WHITE);
+        homeButton.setForeground(Color.BLACK);
         homeButton.setFocusPainted(false);
         homeButton.setPreferredSize(new Dimension(80, 40));
         homeButton.addActionListener(new ActionListener() {
@@ -158,7 +161,8 @@ public class LevelSelection extends JPanel {
         JButton homeButton = new JButton("Home");
         homeButton.setFont(new Font("Arial", Font.BOLD, 16));
         homeButton.setBackground(new Color(51, 150, 255));
-        homeButton.setForeground(Color.WHITE);
+//        homeButton.setForeground(Color.WHITE);
+        homeButton.setForeground(Color.BLACK);
         homeButton.setFocusPainted(false);
         homeButton.setPreferredSize(new Dimension(80, 40));
         homeButton.addActionListener(new ActionListener() {

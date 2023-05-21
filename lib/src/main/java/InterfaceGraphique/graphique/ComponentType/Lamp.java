@@ -142,4 +142,9 @@ public class Lamp extends Component {
     public boolean getIsOn() {
         return this.isOn;
     }
+
+    @Override
+    public String getName() {
+        return "Lamp";
+    }
 }

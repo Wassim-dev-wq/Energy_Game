@@ -53,6 +53,11 @@ public class ShortCurved extends Component {
         return false;
     }
 
+    @Override
+    public String getName() {
+        return null;
+    }
+
     private void updateGraphics(int x, int y, int w, int h, boolean isOn) {
         if (isOn) {
             createShortCurvedOn(x, y, w, h);
