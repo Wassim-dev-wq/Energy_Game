@@ -117,7 +117,7 @@ public class ElectricityHandler {
             int newRow = sourceRow + dir[0];
             int newCol = sourceCol + dir[1];
             if (newRow >= 0 && newRow < components.length && newCol >= 0 && newCol < components[newRow].length) {
-                boolean isNotEmptyPath = components[newRow][newCol].equals(".") && !this.directions[newRow][newCol].isEmpty() ||
+                boolean isNotEmptyPath = (components[newRow][newCol].equals(".") && !this.directions[newRow][newCol].isEmpty()) ||
                         components[newRow][newCol].equals("L") || components[newRow][newCol].equals("W");
                 LOGGER.info("sourceRow -> " + sourceRow + ", sourceCol -> " + sourceCol);
                 LOGGER.info("Processing cell at newRow: " + newRow + ", newCol: " + newCol + ". isNotEmptyPath: " + isNotEmptyPath);
@@ -134,6 +134,7 @@ public class ElectricityHandler {
                         if (!has_electric[connRow][connCol]) {
                             LOGGER.info("Propagating electricity to cell at connRow: " + connRow + ", connCol: " + connCol);
                             has_electric[connRow][connCol] = true;
+
                             if (components[connRow][connCol].equals("W")){
                                 for (int i=0; i<components.length; i++){
                                     for (int j=0; j<components[i].length; j++){

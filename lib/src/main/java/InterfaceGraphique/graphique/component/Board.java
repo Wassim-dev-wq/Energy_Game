@@ -7,6 +7,7 @@ import InterfaceGraphique.algorithm.Level;
 import InterfaceGraphique.graphique.ComponentType.Component;
 import InterfaceGraphique.graphique.ComponentType.Source;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
@@ -23,6 +24,8 @@ import static InterfaceGraphique.algorithm.ElectricityHandler.LOGGER;
 public class Board extends JPanel {
     private Game game;
     private Level level;
+    private int currentLevel;
+
     private Component[][] components;
     private Map<String, Component> directionToComponentMap = new HashMap<>(); // to keep track on the directions of the components
     private String levelsType;
@@ -32,6 +35,7 @@ public class Board extends JPanel {
 
     public Board(Game game, int level, String levelsType, LevelSelection levelSelection) {
         this.levelSelection = levelSelection;
+        this.currentLevel = level;
         this.levelsType = levelsType;
         this.game = game;
         setLayout(new BorderLayout());
@@ -111,14 +115,23 @@ public class Board extends JPanel {
                         }
                         System.out.println();
                     }
-                    // Reset and propagate electricity
                     ElectricityHandler electricityHandler = level.getElectricityHandler();
                     electricityHandler.resetElectricity();
                     electricityHandler.propagateElectricity();
+                    for (int i = 0; i < components.length; i++) {
+                        for (int j = 0; j < components[i].length; j++) {
+                            Component component = components[i][j];
+                            if (component != null) {
+                                boolean isOn = component.getIsOn();
+                                System.out.println("Component at rowIndex: " + i + ", columnIndex: " + j + " isOn: " + isOn);
+                            }
+                        }
+                    }
                     boolean[][] hasElectric = electricityHandler.getHasElectric();
                     boolean allComponentsPowered = true;
                     for (boolean[] row : hasElectric) {
                         for (boolean powered : row) {
+                            System.out.println(row +" "+powered);
                             if (!powered) {
                                 allComponentsPowered = false;
                                 break;
@@ -127,6 +140,18 @@ public class Board extends JPanel {
                     }
                     if (allComponentsPowered) {
                         updateScore();
+                        String fileName = "level" + (currentLevel + 1) + ".nrg";
+                        String nextLevelFilePath = "/Levels/"+levelsType+"/" + fileName;
+                        File nextLevelFile = new File(nextLevelFilePath);
+                        if (nextLevelFile.exists()) {
+                            currentLevel++;
+                            loadAndDisplayLevel(nextLevelFilePath);
+                            this.repaint();
+                        } else {
+                            currentLevel = 1;
+                            loadAndDisplayLevel(nextLevelFilePath);
+                            this.repaint();
+                        }
                     }
                     LOGGER.info("Component was clicked. It was rotated and its directions updated.");
                 }
