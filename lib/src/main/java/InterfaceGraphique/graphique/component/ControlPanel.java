@@ -22,11 +22,14 @@ public class ControlPanel extends JPanel {
     private String levelsType;
     private LevelSelection levelSelection;
 
+    public int levelcount;
+
     public ControlPanel(Game game, int level,String levelsType, LevelSelection levelSelection) {
         this.levelSelection = levelSelection;
         this.levelsType = levelsType;
         this.game = game;
         this.level = level;
+        levelcount = level;
         setLayout(new FlowLayout(FlowLayout.LEFT));
         setBackground(Color.LIGHT_GRAY);
 
@@ -85,10 +88,11 @@ public class ControlPanel extends JPanel {
         solutionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String file = "/Levels/levels_solution/level" + level + ".nrg";
+                System.out.println(levelSelection.getLevelNumber());
+                String file = "/Levels/levels_solution/level" + levelcount + ".nrg";
                 System.out.println(file);
                 test_png t = new test_png(file);
-                JOptionPane.showMessageDialog(game, t);
+                JOptionPane.showMessageDialog(game, t, "Solution", JOptionPane.INFORMATION_MESSAGE);
             }
         });
         add(solutionButton);
@@ -109,6 +113,7 @@ public class ControlPanel extends JPanel {
     }
     public void updateLevel() {
         levelLabel.setText("  Niveau: " + (level + 1));
+        levelcount = level + 1;
     }
     
 }

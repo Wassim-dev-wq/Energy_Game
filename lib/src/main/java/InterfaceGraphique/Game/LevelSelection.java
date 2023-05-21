@@ -60,7 +60,7 @@ public class LevelSelection extends JPanel {
                 game.setLocationRelativeTo(null);
             }
         });
-
+        add(homeButton, BorderLayout.NORTH);
 
         add(levelsPanel, BorderLayout.CENTER);
     }
