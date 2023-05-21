@@ -19,7 +19,8 @@ public class LevelSelection extends JPanel {
     private int created_levels ;
     public LevelSelection(Game game, String buttonType) {
         File createdLevelsDir = new File("src/main/resources/Levels/created_levels/");
-        this.created_levels = Objects.requireNonNull(createdLevelsDir.listFiles()).length;
+        File[] files = createdLevelsDir.listFiles();
+        int created_levels = (files != null) ? files.length : 0;
         this.game = game;
         this.buttonType = buttonType;
         setLayout(new BorderLayout());
