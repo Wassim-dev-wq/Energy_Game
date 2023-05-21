@@ -31,6 +31,8 @@ public class Board extends JPanel {
     private String levelsType;
     private LevelSelection levelSelection;
     static int score;
+    static int niveau;
+
 
 
     public Board(Game game, int level, String levelsType, LevelSelection levelSelection) {
@@ -66,6 +68,10 @@ public class Board extends JPanel {
         controlPanel.updateScore(score);
     }
 
+    public void updateLevel() {
+        ControlPanel controlPanel = (ControlPanel) getComponent(0);
+        controlPanel.updateLevel();
+    }
     public void loadAndDisplayLevel(String levelFilePath) {
         level = new Level(levelFilePath);
         components = new Component[level.getHeight()][level.getWidth()];
@@ -140,6 +146,7 @@ public class Board extends JPanel {
                     }
                     if (allComponentsPowered) {
                         updateScore();
+                        updateLevel();
                         String fileName = "level" + (currentLevel + 1) + ".nrg";
                         String nextLevelFilePath = "/Levels/"+levelsType+"/" + fileName;
                         File nextLevelFile = new File(nextLevelFilePath);
