@@ -17,6 +17,7 @@ import java.util.List;
 public class ControlPanel extends JPanel {
     private Game game;
     private JLabel scoreLabel;
+    private JLabel levelLabel;
     private int level;
     private String levelsType;
     private LevelSelection levelSelection;
@@ -36,6 +37,7 @@ public class ControlPanel extends JPanel {
             createSolutionButton(buttonTextColor);
             createScoreLabel();
         }
+        createLevelLabel();
     }
 
     private void createHomeButton(Color buttonTextColor) {
@@ -88,7 +90,11 @@ public class ControlPanel extends JPanel {
         scoreLabel.setForeground(Color.YELLOW);
         add(scoreLabel);
     }
-
+    private void createLevelLabel() {
+        levelLabel = new JLabel("  Niveau: " + levelSelection.getLevelNumber());
+        levelLabel.setForeground(Color.WHITE);
+        add(levelLabel);
+    }
     public void updateScore(int score) {
         scoreLabel.setText("Score: " + score);
     }

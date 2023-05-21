@@ -65,17 +65,6 @@ public class CombinedPath extends Component {
 
     @Override
     public void rotate() {
-//        if (format.equals("S")) {
-//            this.angle -= 90;
-//            if (this.angle <  -270) {
-//                this.angle = 0;
-//            }
-//        } else {
-//            this.angle -= 60;
-//            if (this.angle < -300) {
-//                this.angle = 0;
-//            }
-//        }
         updateDirections();
         updateGraphics(isOn, format, this.angle);
     }

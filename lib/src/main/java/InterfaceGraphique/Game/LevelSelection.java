@@ -16,6 +16,7 @@ public class LevelSelection extends JPanel {
     private Empty_Board emptyBoard;
     private String buttonType;
     private int levelNumber= 10;
+    private int currentLevel ;
     private int created_levels ;
     public LevelSelection(Game game, String buttonType) {
         String userDirectory = new File("").getAbsolutePath();
@@ -118,7 +119,7 @@ public class LevelSelection extends JPanel {
 
 
     public int getLevelNumber(){
-        return levelNumber;
+        return currentLevel;
     }
     private void addButton(String label, int levelNumber, JPanel levelsPanel, GridBagConstraints gridBag) {
         JButton button = new JButton(label);
@@ -138,6 +139,7 @@ public class LevelSelection extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JPanel gamePanel = new JPanel(new BorderLayout());
+                currentLevel = levelNumber;
                 board = new Board(game, levelNumber,buttonType,LevelSelection.this);
                 board.setBackground(Color.BLACK);
                 String levelFilePath = "/Levels/"+buttonType+"/level" + levelNumber + ".nrg";
