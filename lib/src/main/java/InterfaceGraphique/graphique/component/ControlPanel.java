@@ -28,7 +28,7 @@ public class ControlPanel extends JPanel {
         this.game = game;
         this.level = level;
         setLayout(new FlowLayout(FlowLayout.LEFT));
-        setBackground(Color.DARK_GRAY);
+        setBackground(Color.LIGHT_GRAY);
 
         Color buttonTextColor = Color.BLACK;
         createHomeButton(buttonTextColor);
@@ -42,7 +42,7 @@ public class ControlPanel extends JPanel {
 
     private void createHomeButton(Color buttonTextColor) {
         JButton homeButton = new JButton("Home");
-        homeButton.setBackground(Color.DARK_GRAY);
+        homeButton.setBackground(Color.WHITE);
         homeButton.setForeground(buttonTextColor);
         homeButton.addActionListener(new ActionListener() {
             @Override
@@ -57,7 +57,7 @@ public class ControlPanel extends JPanel {
 
     private void createHelpButton(Color buttonTextColor) {
         JButton helpButton = new JButton("Help");
-        helpButton.setBackground(Color.DARK_GRAY);
+        helpButton.setBackground(Color.WHITE);
         helpButton.setForeground(buttonTextColor);
         helpButton.addActionListener(new ActionListener() {
             @Override
@@ -71,7 +71,7 @@ public class ControlPanel extends JPanel {
 
     private void createSolutionButton(Color buttonTextColor) {
         JButton solutionButton = new JButton("Solution");
-        solutionButton.setBackground(Color.DARK_GRAY);
+        solutionButton.setBackground(Color.WHITE);
         solutionButton.setForeground(buttonTextColor);
         solutionButton.addActionListener(new ActionListener() {
             @Override
@@ -87,12 +87,12 @@ public class ControlPanel extends JPanel {
 
     private void createScoreLabel() {
         scoreLabel = new JLabel("Score: " + Board.score);
-        scoreLabel.setForeground(Color.YELLOW);
+        scoreLabel.setForeground(Color.black);
         add(scoreLabel);
     }
     private void createLevelLabel() {
         levelLabel = new JLabel("  Niveau: " + levelSelection.getLevelNumber());
-        levelLabel.setForeground(Color.WHITE);
+        levelLabel.setForeground(Color.black);
         add(levelLabel);
     }
     public void updateScore(int score) {

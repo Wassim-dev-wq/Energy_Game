@@ -36,6 +36,8 @@ public class LevelSelection extends JPanel {
         if(buttonType.equals("created_levels")){
             for (int i = 1; i <= created_levels; i++) {
                 addButton("Level " + i, i, levelsPanel, gridBag);
+                JButton button_create = createNewButton(gridBag, levelNumber);
+                levelsPanel.add(button_create,gridBag);
             }
         }else{
             for (int i = 1; i <= levelNumber; i++) {
@@ -59,9 +61,6 @@ public class LevelSelection extends JPanel {
             }
         });
 
-        add(homeButton, BorderLayout.NORTH);
-        JButton button_create = createNewButton(gridBag, levelNumber);
-        levelsPanel.add(button_create,gridBag);
 
         add(levelsPanel, BorderLayout.CENTER);
     }
@@ -70,7 +69,7 @@ public class LevelSelection extends JPanel {
         JButton button_create = new JButton("Create");
         button_create.setPreferredSize(new Dimension(120, 120));
         button_create.setFont(new Font("Arial", Font.PLAIN, 18));
-        button_create.setBackground(Color.DARK_GRAY);
+        button_create.setBackground(Color.LIGHT_GRAY);
         int row = (total_level+1 - 1) / 3;
         int col = (total_level+1 - 1) % 3;
         gridBag.gridx = col;
@@ -125,7 +124,7 @@ public class LevelSelection extends JPanel {
         JButton button = new JButton(label);
         button.setPreferredSize(new Dimension(120, 120));
         button.setFont(new Font("Arial", Font.PLAIN, 18));
-        button.setBackground(Color.DARK_GRAY);
+        button.setBackground(Color.LIGHT_GRAY);
 //        button.setForeground(Color.WHITE);
         button.setForeground(Color.BLACK);
         button.setFocusPainted(false);
@@ -183,14 +182,14 @@ public class LevelSelection extends JPanel {
         if(buttonType.equals("created_levels")){
             for (int i = 1; i <= created_levels; i++) {
                 addButton("Level " + i, i, levelsPanel, gridBag);
+                JButton button_create = createNewButton(gridBag, levelNumber);
+                levelsPanel.add(button_create,gridBag);
             }
         }else{
             for (int i = 1; i <= levelNumber; i++) {
                 addButton("Level " + i, i, levelsPanel, gridBag);
             }
         }
-        JButton button_create = createNewButton(gridBag, levelNumber);
-        levelsPanel.add(button_create,gridBag);
         add(levelsPanel, BorderLayout.CENTER);
         revalidate();
         repaint();
