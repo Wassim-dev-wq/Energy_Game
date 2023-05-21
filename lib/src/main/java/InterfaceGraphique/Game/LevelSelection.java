@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.Objects;
 
 import InterfaceGraphique.graphique.component.Board;
 import InterfaceGraphique.graphique.component.Empty_Board;
@@ -15,11 +16,10 @@ public class LevelSelection extends JPanel {
     private Empty_Board emptyBoard;
     private String buttonType;
     private int levelNumber= 10;
-
     private int created_levels ;
     public LevelSelection(Game game, String buttonType) {
         File createdLevelsDir = new File("src/main/resources/Levels/created_levels/");
-        this.created_levels = createdLevelsDir.listFiles().length;
+        this.created_levels = Objects.requireNonNull(createdLevelsDir.listFiles()).length;
         this.game = game;
         this.buttonType = buttonType;
         setLayout(new BorderLayout());
