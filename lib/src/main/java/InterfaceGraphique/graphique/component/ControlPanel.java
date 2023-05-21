@@ -84,7 +84,7 @@ public class ControlPanel extends JPanel {
     }
 
     private void createScoreLabel() {
-        scoreLabel = new JLabel("Score: " + Game.score);
+        scoreLabel = new JLabel("Score: " + Board.score);
         scoreLabel.setForeground(Color.YELLOW);
         add(scoreLabel);
     }

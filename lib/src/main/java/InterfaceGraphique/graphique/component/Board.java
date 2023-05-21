@@ -27,7 +27,7 @@ public class Board extends JPanel {
     private Map<String, Component> directionToComponentMap = new HashMap<>(); // to keep track on the directions of the components
     private String levelsType;
     private LevelSelection levelSelection;
-    private static int score;
+    static int score;
 
 
     public Board(Game game, int level, String levelsType, LevelSelection levelSelection) {
