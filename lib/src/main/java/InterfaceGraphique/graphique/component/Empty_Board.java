@@ -57,7 +57,7 @@ public class Empty_Board extends JPanel {
         String directoryPath = "src/main/resources/Levels/created_levels/";
         String fileName = levelName + ".nrg";
         String userDirectory = new File("").getAbsolutePath();
-        String filePath = userDirectory + "/src/main/resources/Levels/created_levels/" + fileName;
+        String filePath = userDirectory + "/lib/src/main/resources/Levels/created_levels/" + fileName;
         try {
             File myObj = new File(filePath);
             if (myObj.createNewFile()) {
@@ -128,7 +128,7 @@ public class Empty_Board extends JPanel {
             System.out.println(components[clickedRow][clickedCol]);
             String userDirectory = new File("").getAbsolutePath();
             String fileName = levelName + ".nrg";
-            String filePath = userDirectory + "/src/main/resources/Levels/created_levels/" + fileName;
+            String filePath = userDirectory + "/lib/src/main/resources/Levels/created_levels/" + fileName;
             boolean isSaved = this.saveLevelToFile(filePath);
             loadAndDisplayLevel(filePath);
             this.repaint();
