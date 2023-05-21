@@ -14,12 +14,12 @@ public class Game extends JFrame {
     public static void main(String[] args){
         Game game = new Game();
 
-        LevelSelection levelSelection = new LevelSelection(game);
+        HomeScreen homeScreen = new HomeScreen(game);
 
         JPanel mainPanel = new JPanel(new BorderLayout());
         game.setContentPane(mainPanel);
 
-        mainPanel.add(levelSelection, BorderLayout.CENTER);
+        mainPanel.add(homeScreen, BorderLayout.CENTER);
 
         game.setTitle("Energy Game");
         game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

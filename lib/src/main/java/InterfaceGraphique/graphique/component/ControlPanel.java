@@ -18,8 +18,12 @@ public class ControlPanel extends JPanel {
     private Game game;
     private JLabel scoreLabel;
     private int level;
+    private String levelsType;
+    private LevelSelection levelSelection;
 
-    public ControlPanel(Game game, int level) {
+    public ControlPanel(Game game, int level,String levelsType, LevelSelection levelSelection) {
+        this.levelSelection = levelSelection;
+        this.levelsType = levelsType;
         this.game = game;
         this.level = level;
         setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -41,7 +45,6 @@ public class ControlPanel extends JPanel {
         homeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                LevelSelection levelSelection = new LevelSelection(game);
                 game.setContentPane(levelSelection);
                 game.pack();
                 game.setLocationRelativeTo(null);

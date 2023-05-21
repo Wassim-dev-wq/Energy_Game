@@ -1,6 +1,7 @@
 package InterfaceGraphique.graphique.component;
 
 import InterfaceGraphique.Game.Game;
+import InterfaceGraphique.Game.LevelSelection;
 import InterfaceGraphique.algorithm.ElectricityHandler;
 import InterfaceGraphique.algorithm.Level;
 import InterfaceGraphique.graphique.ComponentType.Component;
@@ -24,12 +25,16 @@ public class Board extends JPanel {
     private Level level;
     private Component[][] components;
     private Map<String, Component> directionToComponentMap = new HashMap<>(); // to keep track on the directions of the components
+    private String levelsType;
+    private LevelSelection levelSelection;
 
 
-    public Board(Game game, int level) {
+    public Board(Game game, int level, String levelsType, LevelSelection levelSelection) {
+        this.levelSelection = levelSelection;
+        this.levelsType = levelsType;
         this.game = game;
         setLayout(new BorderLayout());
-        add(new ControlPanel(game, level), BorderLayout.NORTH);
+        add(new ControlPanel(game, level, levelsType,levelSelection), BorderLayout.NORTH);
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -62,7 +67,6 @@ public class Board extends JPanel {
     }
 
     private void handleClick(int x, int y) {
-        LOGGER.info("----------------------------------------------------------------------------------------------------------     Entering handleClick method with x: " + x + ", y: " + y);
         int rowIndex;
         int columnIndex;
 
