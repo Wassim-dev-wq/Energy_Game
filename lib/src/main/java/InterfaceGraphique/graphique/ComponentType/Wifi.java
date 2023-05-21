@@ -100,6 +100,11 @@ public class Wifi extends Component {
         return isOn;
     }
 
+    @Override
+    public String getName() {
+        return "Wifi";
+    }
+
     private void updateGraphics(int x, int y, int w, int h, int angle) {
         createCombinedWifi(x, y, w, h, format);
         setCurrentImage(combined_wifi);

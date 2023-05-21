@@ -60,6 +60,11 @@ public class ShortPath extends Component {
         return false;
     }
 
+    @Override
+    public String getName() {
+        return null;
+    }
+
 
     private void updateGraphics(int x, int y, int w, int h, boolean isOn, String format) {
         if (isOn) {

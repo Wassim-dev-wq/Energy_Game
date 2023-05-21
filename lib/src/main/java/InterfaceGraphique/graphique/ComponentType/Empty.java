@@ -42,6 +42,11 @@ public void rotate() {
         return false;
     }
 
+    @Override
+    public String getName() {
+        return "Empty";
+    }
+
     public void createEmpty(String format, boolean electric){
         int x = 0;
         int y = 0;
