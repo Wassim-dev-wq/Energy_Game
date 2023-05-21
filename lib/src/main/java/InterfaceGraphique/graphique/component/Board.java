@@ -27,6 +27,7 @@ public class Board extends JPanel {
     private Map<String, Component> directionToComponentMap = new HashMap<>(); // to keep track on the directions of the components
     private String levelsType;
     private LevelSelection levelSelection;
+    private static int score;
 
 
     public Board(Game game, int level, String levelsType, LevelSelection levelSelection) {
@@ -55,7 +56,8 @@ public class Board extends JPanel {
     }
 
     // TODO
-    public void updateScore(int score) {
+    public void updateScore() {
+        this.score +=1;
         ControlPanel controlPanel = (ControlPanel) getComponent(0);
         controlPanel.updateScore(score);
     }
@@ -113,6 +115,19 @@ public class Board extends JPanel {
                     ElectricityHandler electricityHandler = level.getElectricityHandler();
                     electricityHandler.resetElectricity();
                     electricityHandler.propagateElectricity();
+                    boolean[][] hasElectric = electricityHandler.getHasElectric();
+                    boolean allComponentsPowered = true;
+                    for (boolean[] row : hasElectric) {
+                        for (boolean powered : row) {
+                            if (!powered) {
+                                allComponentsPowered = false;
+                                break;
+                            }
+                        }
+                    }
+                    if (allComponentsPowered) {
+                        updateScore();
+                    }
                     LOGGER.info("Component was clicked. It was rotated and its directions updated.");
                 }
 
